@@ -1,0 +1,121 @@
+===============================================
+   SISTEMA DE COMBATE ROBLOX - ESTRUTURA
+===============================================
+
+📁 WORKSPACE (Seu Projeto)
+│
+├── 📁 ReplicatedStorage
+│   ├── 📄 CombatRemotes.lua (ModuleScript)
+│   │   └── Cria RemoteEvents: AttackEvent, RewardUpdate, AttackFeedback
+│   │
+│   └── 📄 CombatConfig.lua (ModuleScript)
+│       └── Configurações: dano, alcance, cooldown, recompensas
+│
+├── 📁 ServerScriptService
+│   └── 📄 CombatServer.lua (Script)
+│       └── Lógica do servidor: dano, recompensas, respawn de NPCs
+│
+├── 📁 StarterPlayer
+│   └── 📁 StarterCharacterScripts
+│       └── 📄 CombatClient.lua (LocalScript)
+│           └── Detecta cliques, envia ataques, toca animações
+│
+├── 📁 StarterGui
+│   └── 📄 CombatUI.lua (LocalScript)
+│       └── Interface: botões de estilo, contador de XP/moedas
+│
+└── 📁 Workspace
+    └── 📦 NPC (Model com tag "Enemy")
+        ├── 👤 Humanoid
+        ├── 🎯 HumanoidRootPart
+        └── 🦵 Body Parts
+
+===============================================
+           FLUXO DE COMUNICAÇÃO
+===============================================
+
+1. JOGADOR CLICA
+   └─> CombatClient.lua (Cliente)
+       └─> Verifica cooldown local
+       └─> Calcula posição de ataque
+       └─> Envia AttackEvent para servidor
+
+2. SERVIDOR PROCESSA
+   └─> CombatServer.lua (Servidor)
+       └─> Valida cooldown do servidor
+       └─> Busca NPCs com tag "Enemy" no raio
+       └─> Aplica dano aos NPCs
+       └─> Se NPC morreu:
+           ├─> Gera XP e moedas
+           ├─> Envia RewardUpdate para cliente
+           └─> Agenda respawn do NPC
+
+3. CLIENTE ATUALIZA
+   └─> CombatUI.lua (Cliente)
+       └─> Recebe RewardUpdate
+       └─> Atualiza contadores na UI
+       └─> Anima números
+
+===============================================
+         COMO USAR CADA ARQUIVO
+===============================================
+
+🔧 CombatConfig.lua
+   └─> EDITE AQUI para mudar dano, alcance, recompensas
+   
+🎮 CombatClient.lua
+   └─> EDITE AQUI para mudar controles, animações
+   
+🖥️ CombatServer.lua
+   └─> EDITE AQUI para mudar lógica de dano, respawn
+   
+🎨 CombatUI.lua
+   └─> EDITE AQUI para mudar aparência da interface
+   
+📡 CombatRemotes.lua
+   └─> NÃO PRECISA EDITAR (cria RemoteEvents automaticamente)
+
+===============================================
+           TAGS NECESSÁRIAS
+===============================================
+
+📌 Tag: "Enemy"
+   └─> Aplicar em todos os NPCs inimigos
+   └─> Como aplicar:
+       1. Selecione o Model do NPC
+       2. Properties → Tags
+       3. Clique em "+"
+       4. Digite: Enemy
+       5. Pressione Enter
+
+===============================================
+         ARQUIVOS CRIADOS
+===============================================
+
+✅ ReplicatedStorage/CombatRemotes.lua
+✅ ReplicatedStorage/CombatConfig.lua
+✅ ServerScriptService/CombatServer.lua
+✅ StarterPlayer/StarterCharacterScripts/CombatClient.lua
+✅ StarterGui/CombatUI.lua
+
+===============================================
+      INSTRUÇÕES DE INSTALAÇÃO
+===============================================
+
+1. Copie cada arquivo para o local indicado
+2. Certifique-se de usar o TIPO CORRETO:
+   - ModuleScript para ReplicatedStorage
+   - Script para ServerScriptService
+   - LocalScript para StarterCharacterScripts e StarterGui
+3. Configure NPCs com tag "Enemy"
+4. Pressione Play (F5) para testar
+
+===============================================
+           CONTROLES DO JOGO
+===============================================
+
+🖱️ Clique Esquerdo → Atacar
+⌨️ Tecla 1 → Trocar para Soco
+⌨️ Tecla 2 → Trocar para Espada
+
+===============================================
