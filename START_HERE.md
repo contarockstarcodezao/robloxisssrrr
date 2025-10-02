@@ -8,8 +8,14 @@ Você acabou de receber um **jogo completo de RPG de Ação** para Roblox, inspi
 
 ## 🚨 ALGO NÃO FUNCIONA?
 
+### 💰 **NPCs NÃO DÃOM DROPS/SOMBRAS?** ⭐⭐⭐
+👉 **[CORRIGIR_DROPS_E_SOMBRAS.md](CORRIGIR_DROPS_E_SOMBRAS.md)** - SOLUÇÃO COMPLETA!
+
+**Script pronto:**
+- **DROPS_DropsSombrasCompleto_Script.lua** - Cole no servidor (1 arquivo = TUDO funciona!)
+
 ### 🎨 **MENUS NÃO ABREM? (B, C, F, L)**
-👉 **[CORRIGIR_MENUS.md](CORRIGIR_MENUS.md)** - Solução para menus! ⭐
+👉 **[CORRIGIR_MENUS.md](CORRIGIR_MENUS.md)** - Solução para menus!
 
 **Scripts prontos:**
 - **MENU_CriarMenus_Script.lua** - Execute no servidor
