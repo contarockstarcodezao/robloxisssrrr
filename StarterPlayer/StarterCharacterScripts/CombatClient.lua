@@ -1,5 +1,5 @@
 -- StarterPlayer/StarterCharacterScripts/CombatClient
--- Cliente: Detecta cliques e envia ataques para o servidor
+-- Cliente: Detecta ataques e comunica com servidor
 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -10,13 +10,47 @@ local character = script.Parent
 local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
 
 -- Módulos
-local CombatConfig = require(ReplicatedStorage:WaitForChild("CombatConfig"))
-local CombatRemotes = require(ReplicatedStorage:WaitForChild("CombatRemotes"))
+local GameConfig = require(ReplicatedStorage.Modules.GameConfig)
+local RemoteEvents = require(ReplicatedStorage.Modules.RemoteEvents)
+local UtilityFunctions = require(ReplicatedStorage.Modules.UtilityFunctions)
 
 -- Estado do combate
-local currentAttackStyle = "Punch" -- Padrão: Soco
+local currentAttackStyle = "Fist" -- Padrão: Soco
 local isAttacking = false
 local lastAttackTime = 0
+
+-- Dados do jogador (cache local)
+local playerData = nil
+
+-- ============================
+-- SINCRONIZAÇÃO DE DADOS
+-- ============================
+
+local function RequestPlayerData()
+	local success, data = pcall(function()
+		return RemoteEvents.RequestData:InvokeServer()
+	end)
+	
+	if success and data then
+		playerData = data
+		currentAttackStyle = data.WeaponType or "Fist"
+	end
+end
+
+-- Requisita dados iniciais
+RequestPlayerData()
+
+-- Escuta atualizações de dados
+RemoteEvents.DataUpdate.OnClientEvent:Connect(function(key, value)
+	if key == "FullData" then
+		playerData = value
+		currentAttackStyle = value.WeaponType or "Fist"
+	elseif key == "WeaponType" then
+		currentAttackStyle = value
+	elseif playerData then
+		playerData[key] = value
+	end
+end)
 
 -- ============================
 -- FUNÇÕES DE UTILIDADE
@@ -24,7 +58,7 @@ local lastAttackTime = 0
 
 local function CanAttack()
 	local currentTime = tick()
-	local attackConfig = CombatConfig.AttackStyles[currentAttackStyle]
+	local attackConfig = GameConfig.Combat.AttackStyles[currentAttackStyle]
 	
 	if not attackConfig then
 		return false
@@ -47,7 +81,7 @@ end
 local function GetAttackPosition()
 	-- Retorna a posição à frente do jogador
 	local lookVector = humanoidRootPart.CFrame.LookVector
-	local attackConfig = CombatConfig.AttackStyles[currentAttackStyle]
+	local attackConfig = GameConfig.Combat.AttackStyles[currentAttackStyle]
 	local range = attackConfig and attackConfig.Range or 5
 	
 	-- Posição de ataque (meio da distância do alcance)
@@ -62,7 +96,7 @@ local function PlayAttackAnimation()
 	local humanoid = character:FindFirstChildOfClass("Humanoid")
 	if not humanoid then return end
 	
-	local attackConfig = CombatConfig.AttackStyles[currentAttackStyle]
+	local attackConfig = GameConfig.Combat.AttackStyles[currentAttackStyle]
 	if attackConfig.Animation then
 		-- Se você tiver IDs de animação, carregue aqui
 		-- local animation = Instance.new("Animation")
@@ -91,11 +125,11 @@ local function PerformAttack()
 	local attackPosition = GetAttackPosition()
 	
 	-- Envia para o servidor
-	CombatRemotes.AttackEvent:FireServer(currentAttackStyle, attackPosition)
+	RemoteEvents.AttackEvent:FireServer(currentAttackStyle, attackPosition)
 	
 	-- Debug visual (opcional)
-	if CombatConfig.HitboxSettings.DebugMode then
-		local attackConfig = CombatConfig.AttackStyles[currentAttackStyle]
+	if GameConfig.Combat.HitboxSettings.DebugMode then
+		local attackConfig = GameConfig.Combat.AttackStyles[currentAttackStyle]
 		local part = Instance.new("Part")
 		part.Shape = Enum.PartType.Ball
 		part.Size = Vector3.new(attackConfig.Range * 2, attackConfig.Range * 2, attackConfig.Range * 2)
@@ -118,15 +152,15 @@ end
 -- ============================
 
 local function ChangeAttackStyle(newStyle)
-	if CombatConfig.AttackStyles[newStyle] then
+	if GameConfig.Combat.AttackStyles[newStyle] then
 		currentAttackStyle = newStyle
-		print("Estilo de ataque alterado para:", CombatConfig.AttackStyles[newStyle].Name)
+		print("✅ Estilo alterado:", GameConfig.Combat.AttackStyles[newStyle].Name)
 		return true
 	end
 	return false
 end
 
--- Expõe função para a UI
+-- Expõe função globalmente para UI
 _G.ChangeAttackStyle = ChangeAttackStyle
 
 -- ============================
@@ -134,7 +168,7 @@ _G.ChangeAttackStyle = ChangeAttackStyle
 -- ============================
 
 UserInputService.InputBegan:Connect(function(input, gameProcessed)
-	-- Ignora se o jogador estiver digitando em chat, etc.
+	-- Ignora se o jogador estiver digitando
 	if gameProcessed then return end
 	
 	-- Clique esquerdo do mouse
@@ -142,34 +176,35 @@ UserInputService.InputBegan:Connect(function(input, gameProcessed)
 		PerformAttack()
 	end
 	
-	-- Teclas de atalho (opcional)
+	-- Teclas de atalho
 	if input.KeyCode == Enum.KeyCode.One then
-		ChangeAttackStyle("Punch")
+		ChangeAttackStyle("Fist")
 	elseif input.KeyCode == Enum.KeyCode.Two then
 		ChangeAttackStyle("Sword")
 	end
 end)
 
 -- ============================
--- FEEDBACK VISUAL
+-- FEEDBACK VISUAL DO SERVIDOR
 -- ============================
 
-CombatRemotes.AttackFeedback.OnClientEvent:Connect(function(feedbackType, npc, killed)
+RemoteEvents.AttackFeedback.OnClientEvent:Connect(function(feedbackType, data)
 	if feedbackType == "hit" then
-		-- Efeito visual de acerto
-		print("Acertou!", killed and "NPC eliminado!" or "")
-		
-		-- Aqui você pode adicionar efeitos visuais/sonoros
-		-- Exemplo: som de acerto
-		-- local hitSound = Instance.new("Sound")
-		-- hitSound.SoundId = "rbxassetid://SEU_ID_DE_SOM"
-		-- hitSound.Parent = humanoidRootPart
-		-- hitSound:Play()
+		-- Efeito de acerto
+		print("💥 Acertou!", data.NPCName, "-", data.Damage, "dano", data.Killed and "🔥 ELIMINADO!" or "")
 		
 	elseif feedbackType == "miss" then
-		-- Efeito visual de erro
-		print("Errou!")
+		-- Efeito de erro
+		print("❌ Errou!")
+		
+	elseif feedbackType == "level_up" then
+		-- Notificação de level up
+		print("⭐ LEVEL UP! Nível", data)
+		
+	elseif feedbackType == "shadow_captured" then
+		-- Notificação de captura de sombra
+		print("🧞‍♂️ Sombra capturada:", data.Name)
 	end
 end)
 
-print("Sistema de Combate: Cliente inicializado!")
+print("✅ Sistema de Combate (Cliente) inicializado!")
