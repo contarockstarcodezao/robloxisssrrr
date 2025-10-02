@@ -6,6 +6,20 @@ Você acabou de receber um **jogo completo de RPG de Ação** para Roblox, inspi
 
 ---
 
+## 🚨 ALGO NÃO FUNCIONA?
+
+### ⚡ **SOLUÇÃO RÁPIDA:**
+👉 **[CORRIGIR_AGORA.md](CORRIGIR_AGORA.md)** - Correção em 5 minutos!
+
+### 🔧 **GUIA COMPLETO:**
+👉 **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** - Solução de problemas
+
+### 🧪 **SCRIPTS DE TESTE:**
+- **TESTE_RAPIDO_ServerScript.lua** - Cole no servidor
+- **TESTE_RAPIDO_ClientScript.lua** - Cole no cliente
+
+---
+
 ## 🎯 O QUE FAZER AGORA?
 
 ### 📱 Opção 1: QUERO INSTALAR AGORA! (10 minutos)
