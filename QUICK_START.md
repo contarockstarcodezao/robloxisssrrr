@@ -1,193 +1,125 @@
-# ⚡ Arise Crossover - Quick Start (Início Rápido)
+# 🚀 Quick Start - Shadow Hunter
 
-## 🚀 Instalação em 10 Minutos
+## 📦 Instalação Rápida (10 minutos)
 
-### 1️⃣ Preparação (2 min)
+### 1. Criar Estrutura (2 min)
+
+Abra Roblox Studio e crie estas pastas:
+
 ```
-1. Abra Roblox Studio
-2. Crie novo lugar (Baseplate)
-3. Ative API Services em Game Settings > Security
-```
+📁 ReplicatedStorage
+  └─ 📁 Modules
+  └─ 📁 Events
 
-### 2️⃣ Estrutura de Pastas (1 min)
-```
-ReplicatedStorage/
-  ├── Modules/ (Folder)
-  └── Events/ (Folder)
+📁 ServerScriptService
+  └─ 📁 Core
+  └─ 📁 Combat
+  └─ 📁 Zones
 
-ServerScriptService/
-  ├── Core/ (Folder)
-  └── Systems/ (Folder)
+📁 StarterPlayer
+  └─ 📁 StarterPlayerScripts
+      └─ 📁 Client
+      └─ 📁 UI
 
-StarterGui/
-  └── GameUI (ScreenGui)
-```
-
-### 3️⃣ Copiar Scripts (5 min)
-
-#### ReplicatedStorage/Modules/
-Cole como **ModuleScript**:
-- ✅ GameConfig
-- ✅ ShadowData
-- ✅ WeaponData
-- ✅ RelicData
-- ✅ UtilityFunctions
-
-#### ReplicatedStorage/Events/
-Crie estes **RemoteEvent**:
-- CombatEvent
-- ShadowEvent
-- InventoryEvent
-- ShopEvent
-- DungeonEvent
-- RankingEvent
-
-Crie este **RemoteFunction**:
-- DataRequest
-
-#### ServerScriptService/Core/
-Cole como **Script**:
-- DataManager
-- ServerMain
-
-#### ServerScriptService/Systems/
-Cole como **Script**:
-- CombatSystem
-- ShadowSystem
-- DropSystem
-- XPSystem
-- DungeonSystem
-- RankingSystem
-- NPCManager
-
-#### StarterPlayer/StarterPlayerScripts/
-Cole **ClientMain** como **LocalScript**
-
-Cole como **ModuleScript**:
-- CombatController
-- ShadowController
-- UIController
-
-### 4️⃣ Interface Mínima (2 min)
-
-Em **StarterGui/GameUI**, crie estes **Frame**:
-
-```lua
-HUD (Visible = true)
-  └── Adicione 2 TextLabels: "LevelLabel", "CashLabel"
-
-ShadowInventory (Visible = false)
-  └── Adicione 1 ScrollingFrame
-
-Backpack (Visible = false)
-  └── Adicione 1 ScrollingFrame
-
-Forge (Visible = false)
-  └── Adicione 1 ScrollingFrame
-
-Ranking (Visible = false)
-  └── Adicione 1 ScrollingFrame
-
-DungeonUI (Visible = false)
-  └── Adicione 1 Frame
+📁 Workspace
+  └─ 📁 Zones
+  └─ 📁 NPCs
 ```
 
-### 5️⃣ Testar! ✅
-```
-Pressione F5
-Procure no Output:
-  ✅ DataManager inicializado
-  ✅ Todos os sistemas carregados
-  ✅ Cliente inicializado
+### 2. Adicionar Módulos (3 min)
 
-Controles:
-  🖱️ Clique: Atacar
-  ⌨️ B: Inventário
-  ⌨️ C: Sombras
-  ⌨️ F: Forja
-  ⌨️ L: Ranking
-```
+**ReplicatedStorage/Modules** (ModuleScript):
+- `RankData.lua`
+- `NPCData.lua`
+- `ShadowData.lua`
+
+**ReplicatedStorage/Events** (ModuleScript):
+- `RemoteEvents.lua`
+
+### 3. Adicionar Scripts do Servidor (3 min)
+
+**ServerScriptService/Core** (Script):
+- `DataManager.lua`
+- `RankSystem.lua`
+- `MissionSystem.lua`
+
+**ServerScriptService/Combat** (Script):
+- `NPCManager.lua`
+- `CombatSystem.lua`
+- `ShadowSystem.lua`
+
+**ServerScriptService/Zones** (Script):
+- `ZoneManager.lua`
+
+**ServerScriptService** (Script):
+- `MainServer.lua` ⭐ (Principal)
+
+### 4. Adicionar Scripts do Cliente (2 min)
+
+**StarterPlayer/StarterPlayerScripts/Client** (LocalScript):
+- `CombatClient.lua`
+- `ShadowClient.lua`
+
+**StarterPlayer/StarterPlayerScripts/UI** (LocalScript):
+- `HUDController.lua`
+
+### 5. Configurar (1 min)
+
+1. Game Settings → Security → ✅ Enable Studio Access to API Services
+2. Delete o SpawnLocation padrão do Workspace
+
+### 6. Testar! 🎮
+
+Pressione **F5** e jogue!
+
+## 🎮 Controles
+
+| Ação | Tecla |
+|------|-------|
+| Atacar NPC | Clique ou Espaço |
+| Capturar Sombra | E |
+| Destruir Sombra | F |
+| Abrir Inventário | Botão na tela |
+
+## ✅ Checklist Rápido
+
+- [ ] Todas as pastas criadas
+- [ ] Todos os scripts adicionados
+- [ ] Tipos corretos (Script/LocalScript/ModuleScript)
+- [ ] API Services habilitado
+- [ ] SpawnLocation removido
+- [ ] Testado sem erros
+
+## 🐛 Problemas Comuns
+
+**Erro: "RemoteEvents not found"**
+→ Verifique se `RemoteEvents.lua` é ModuleScript em `ReplicatedStorage/Events`
+
+**NPCs não aparecem**
+→ Verifique Output, deve ter mensagens `[Sistema] Inicializado`
+
+**HUD não aparece**
+→ `HUDController.lua` deve ser LocalScript em `UI`
+
+## 📚 Próximos Passos
+
+1. Leia `README.md` para entender o jogo
+2. Veja `CONFIGURATION_GUIDE.md` para personalizar
+3. Consulte `TECHNICAL_DOCUMENTATION.md` para detalhes
+
+## 🎯 Primeiro Objetivos no Jogo
+
+1. Derrote 3 Goblins Fracos
+2. Capture sua primeira sombra
+3. Equipe a sombra no inventário
+4. Complete a missão "Primeiro Sangue"
+5. Suba para Rank E
+6. Explore a próxima zona!
 
 ---
 
-## 📦 Lista de Arquivos Para Copiar
+**Tempo Total:** ~10 minutos  
+**Dificuldade:** Fácil  
+**Requer:** Roblox Studio
 
-### Módulos (5 arquivos)
-1. `ReplicatedStorage_Modules_GameConfig.lua`
-2. `ReplicatedStorage_Modules_ShadowData.lua`
-3. `ReplicatedStorage_Modules_WeaponData.lua`
-4. `ReplicatedStorage_Modules_RelicData.lua`
-5. `ReplicatedStorage_Modules_UtilityFunctions.lua`
-
-### Servidor (9 arquivos)
-6. `ServerScriptService_Core_DataManager.lua`
-7. `ServerScriptService_Core_ServerMain.lua`
-8. `ServerScriptService_Systems_CombatSystem.lua`
-9. `ServerScriptService_Systems_ShadowSystem.lua`
-10. `ServerScriptService_Systems_DropSystem.lua`
-11. `ServerScriptService_Systems_XPSystem.lua`
-12. `ServerScriptService_Systems_DungeonSystem.lua`
-13. `ServerScriptService_Systems_RankingSystem.lua`
-14. `ServerScriptService_Systems_NPCManager.lua`
-
-### Cliente (4 arquivos)
-15. `StarterPlayer_StarterPlayerScripts_ClientMain.lua`
-16. `StarterPlayer_StarterPlayerScripts_CombatController.lua`
-17. `StarterPlayer_StarterPlayerScripts_ShadowController.lua`
-18. `StarterPlayer_StarterPlayerScripts_UIController.lua`
-
----
-
-## 🎯 Ordem de Instalação Recomendada
-
-```
-1. Criar pastas
-2. Criar RemoteEvents
-3. Instalar Módulos
-4. Instalar Servidor (Core primeiro, depois Systems)
-5. Instalar Cliente
-6. Criar Interface básica
-7. Testar
-```
-
----
-
-## ⚠️ Checklist Rápido
-
-Antes de testar, confirme:
-
-- [ ] 5 Módulos em ReplicatedStorage/Modules
-- [ ] 7 RemoteEvents + 1 RemoteFunction em ReplicatedStorage/Events
-- [ ] 2 Scripts em ServerScriptService/Core
-- [ ] 7 Scripts em ServerScriptService/Systems
-- [ ] 1 LocalScript + 3 ModuleScripts em StarterPlayerScripts
-- [ ] 6 Frames em StarterGui/GameUI
-- [ ] API Services ativado
-
----
-
-## 🐛 Erros Comuns
-
-| Erro | Solução |
-|------|---------|
-| "WaitForChild timed out" | Verifique nome dos objetos |
-| "Attempt to index nil" | Falta criar RemoteEvent |
-| "DataStore error" | Ative API Services |
-| NPCs não spawnam | Normal, aguarde 5 segundos |
-
----
-
-## 📞 Próximos Passos
-
-1. ✅ Jogo funcionando básico
-2. 🎨 Melhorar interface (UICorner, cores, etc)
-3. 🎭 Adicionar modelos 3D reais
-4. 🎵 Adicionar sons e músicas
-5. 🗺️ Criar mapas e áreas
-6. 💎 Adicionar Game Passes
-
----
-
-**Tempo total: ~10-15 minutos**
-
-Para guia detalhado, veja: `INSTALLATION_GUIDE.md`
+Boa sorte, Hunter! 🎮✨

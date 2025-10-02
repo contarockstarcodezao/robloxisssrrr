@@ -1,348 +1,190 @@
-# 🎮 Arise Crossover - Guia de Instalação Completo
+# 📖 Guia de Instalação - Shadow Hunter
+
+## 🚀 Método 1: Instalação Manual (Recomendado)
+
+### Passo 1: Preparar o Roblox Studio
+1. Abra o Roblox Studio
+2. Crie um novo Place ou abra um existente
+3. Certifique-se de ter o painel "Explorer" e "Properties" abertos
+
+### Passo 2: Criar Estrutura de Pastas
+
+#### No ReplicatedStorage:
+1. Clique com botão direito em `ReplicatedStorage`
+2. Insert Object → Folder
+3. Crie as seguintes pastas:
+   - `Modules`
+   - `Events`
+
+#### No ServerScriptService:
+1. Clique com botão direito em `ServerScriptService`
+2. Crie as seguintes pastas:
+   - `Core`
+   - `Combat`
+   - `Zones`
+   - `Economy`
+
+#### No StarterPlayer:
+1. Vá para `StarterPlayer` → `StarterPlayerScripts`
+2. Crie as seguintes pastas:
+   - `Client`
+   - `UI`
+
+#### No Workspace:
+1. Crie as seguintes pastas:
+   - `Zones`
+   - `NPCs`
+
+### Passo 3: Adicionar Scripts
+
+#### ReplicatedStorage/Modules (ModuleScript):
+1. Clique com botão direito em `ReplicatedStorage/Modules`
+2. Insert Object → ModuleScript
+3. Copie o conteúdo dos seguintes arquivos:
+   - `RankData.lua`
+   - `NPCData.lua`
+   - `ShadowData.lua`
+
+#### ReplicatedStorage/Events (ModuleScript):
+1. Clique com botão direito em `ReplicatedStorage/Events`
+2. Insert Object → ModuleScript
+3. Copie o conteúdo de:
+   - `RemoteEvents.lua`
+
+#### ServerScriptService/Core (Script):
+1. Clique com botão direito em `ServerScriptService/Core`
+2. Insert Object → Script
+3. Copie o conteúdo dos seguintes arquivos:
+   - `DataManager.lua`
+   - `RankSystem.lua`
+   - `MissionSystem.lua`
+
+#### ServerScriptService/Combat (Script):
+1. Clique com botão direito em `ServerScriptService/Combat`
+2. Insert Object → Script
+3. Copie o conteúdo dos seguintes arquivos:
+   - `NPCManager.lua`
+   - `CombatSystem.lua`
+   - `ShadowSystem.lua`
+
+#### ServerScriptService/Zones (Script):
+1. Clique com botão direito em `ServerScriptService/Zones`
+2. Insert Object → Script
+3. Copie o conteúdo de:
+   - `ZoneManager.lua`
+
+#### ServerScriptService (Script Principal):
+1. Clique com botão direito em `ServerScriptService`
+2. Insert Object → Script
+3. Renomeie para `MainServer`
+4. Copie o conteúdo de:
+   - `MainServer.lua`
+
+#### StarterPlayer/StarterPlayerScripts/Client (LocalScript):
+1. Clique com botão direito em `StarterPlayer/StarterPlayerScripts/Client`
+2. Insert Object → LocalScript
+3. Copie o conteúdo dos seguintes arquivos:
+   - `CombatClient.lua`
+   - `ShadowClient.lua`
+
+#### StarterPlayer/StarterPlayerScripts/UI (LocalScript):
+1. Clique com botão direito em `StarterPlayer/StarterPlayerScripts/UI`
+2. Insert Object → LocalScript
+3. Copie o conteúdo de:
+   - `HUDController.lua`
+
+### Passo 4: Configurações Finais
+
+1. **Habilitar API Services:**
+   - Game Settings → Security → Enable Studio Access to API Services ✅
+
+2. **Habilitar HTTP Requests (opcional):**
+   - Game Settings → Security → Allow HTTP Requests ✅
 
-## 📌 Pré-requisitos
-- Roblox Studio instalado
-- Conta Roblox ativa
-- Conhecimento básico do Roblox Studio
+3. **Configurar Spawn:**
+   - Delete o SpawnLocation padrão do Workspace
+   - O jogo usará o sistema de zonas para spawn
 
----
+### Passo 5: Testar o Jogo
 
-## 🚀 PASSO 1: Criar o Projeto
+1. Clique em "Play" (F5)
+2. Você deve ver:
+   - Mensagens de inicialização no Output
+   - HUD aparecendo no canto superior esquerdo
+   - Zonas criadas no Workspace
+   - NPCs spawnados nas zonas
 
-1. Abra o **Roblox Studio**
-2. Crie um novo lugar usando o template **Baseplate**
-3. Salve o jogo como **"Arise Crossover"**
+## 🔧 Método 2: Usando Command Bar
 
----
+1. Abra o Command Bar (View → Command Bar ou Ctrl+Shift+X)
+2. Cole o conteúdo de `SETUP_COMMAND.lua`
+3. Pressione Enter
+4. A estrutura de pastas será criada automaticamente
+5. Você ainda precisará copiar manualmente o código dos arquivos .lua
 
-## 📁 PASSO 2: Criar Estrutura de Pastas
+## ⚠️ Problemas Comuns
 
-### No ReplicatedStorage:
-1. Clique com botão direito em **ReplicatedStorage**
-2. Insira uma **Folder** e nomeie como **"Modules"**
-3. Insira outra **Folder** e nomeie como **"Events"**
-
-### No ServerScriptService:
-1. Clique com botão direito em **ServerScriptService**
-2. Insira uma **Folder** e nomeie como **"Core"**
-3. Insira outra **Folder** e nomeie como **"Systems"**
-
-### No StarterGui:
-1. Clique com botão direito em **StarterGui**
-2. Insira um **ScreenGui** e nomeie como **"GameUI"**
-
----
-
-## 📜 PASSO 3: Instalar Módulos (ReplicatedStorage/Modules)
-
-### 3.1 GameConfig
-1. Em **ReplicatedStorage/Modules**, insira um **ModuleScript**
-2. Renomeie para **"GameConfig"**
-3. Cole o conteúdo de: `ReplicatedStorage_Modules_GameConfig.lua`
-
-### 3.2 ShadowData
-1. Em **ReplicatedStorage/Modules**, insira um **ModuleScript**
-2. Renomeie para **"ShadowData"**
-3. Cole o conteúdo de: `ReplicatedStorage_Modules_ShadowData.lua`
-
-### 3.3 WeaponData
-1. Em **ReplicatedStorage/Modules**, insira um **ModuleScript**
-2. Renomeie para **"WeaponData"**
-3. Cole o conteúdo de: `ReplicatedStorage_Modules_WeaponData.lua`
-
-### 3.4 RelicData
-1. Em **ReplicatedStorage/Modules**, insira um **ModuleScript**
-2. Renomeie para **"RelicData"**
-3. Cole o conteúdo de: `ReplicatedStorage_Modules_RelicData.lua`
-
-### 3.5 UtilityFunctions
-1. Em **ReplicatedStorage/Modules**, insira um **ModuleScript**
-2. Renomeie para **"UtilityFunctions"**
-3. Cole o conteúdo de: `ReplicatedStorage_Modules_UtilityFunctions.lua`
-
----
-
-## 📡 PASSO 4: Criar RemoteEvents e RemoteFunctions
-
-### Em ReplicatedStorage/Events:
-
-1. **CombatEvent**
-   - Insira um **RemoteEvent**
-   - Renomeie para **"CombatEvent"**
-
-2. **ShadowEvent**
-   - Insira um **RemoteEvent**
-   - Renomeie para **"ShadowEvent"**
-
-3. **InventoryEvent**
-   - Insira um **RemoteEvent**
-   - Renomeie para **"InventoryEvent"**
-
-4. **ShopEvent**
-   - Insira um **RemoteEvent**
-   - Renomeie para **"ShopEvent"**
-
-5. **DungeonEvent**
-   - Insira um **RemoteEvent**
-   - Renomeie para **"DungeonEvent"**
-
-6. **RankingEvent**
-   - Insira um **RemoteEvent**
-   - Renomeie para **"RankingEvent"**
-
-7. **DataRequest**
-   - Insira um **RemoteFunction**
-   - Renomeie para **"DataRequest"**
-
----
-
-## 🖥️ PASSO 5: Instalar Scripts do Servidor
-
-### 5.1 Core Scripts
-
-#### DataManager
-1. Em **ServerScriptService/Core**, insira um **Script**
-2. Renomeie para **"DataManager"**
-3. Cole o conteúdo de: `ServerScriptService_Core_DataManager.lua`
-
-#### ServerMain
-1. Em **ServerScriptService/Core**, insira um **Script**
-2. Renomeie para **"ServerMain"**
-3. Cole o conteúdo de: `ServerScriptService_Core_ServerMain.lua`
-
-### 5.2 Systems Scripts
-
-#### CombatSystem
-1. Em **ServerScriptService/Systems**, insira um **Script**
-2. Renomeie para **"CombatSystem"**
-3. Cole o conteúdo de: `ServerScriptService_Systems_CombatSystem.lua`
-
-#### ShadowSystem
-1. Em **ServerScriptService/Systems**, insira um **Script**
-2. Renomeie para **"ShadowSystem"**
-3. Cole o conteúdo de: `ServerScriptService_Systems_ShadowSystem.lua`
-
-#### DropSystem
-1. Em **ServerScriptService/Systems**, insira um **Script**
-2. Renomeie para **"DropSystem"**
-3. Cole o conteúdo de: `ServerScriptService_Systems_DropSystem.lua`
-
-#### XPSystem
-1. Em **ServerScriptService/Systems**, insira um **Script**
-2. Renomeie para **"XPSystem"**
-3. Cole o conteúdo de: `ServerScriptService_Systems_XPSystem.lua`
-
-#### DungeonSystem
-1. Em **ServerScriptService/Systems**, insira um **Script**
-2. Renomeie para **"DungeonSystem"**
-3. Cole o conteúdo de: `ServerScriptService_Systems_DungeonSystem.lua`
-
-#### RankingSystem
-1. Em **ServerScriptService/Systems**, insira um **Script**
-2. Renomeie para **"RankingSystem"**
-3. Cole o conteúdo de: `ServerScriptService_Systems_RankingSystem.lua`
-
-#### NPCManager
-1. Em **ServerScriptService/Systems**, insira um **Script**
-2. Renomeie para **"NPCManager"**
-3. Cole o conteúdo de: `ServerScriptService_Systems_NPCManager.lua`
-
----
-
-## 💻 PASSO 6: Instalar Scripts do Cliente
-
-### Em StarterPlayer/StarterPlayerScripts:
-
-#### ClientMain
-1. Em **StarterPlayer/StarterPlayerScripts**, insira um **LocalScript**
-2. Renomeie para **"ClientMain"**
-3. Cole o conteúdo de: `StarterPlayer_StarterPlayerScripts_ClientMain.lua`
-
-#### CombatController
-1. Em **StarterPlayer/StarterPlayerScripts**, insira um **ModuleScript**
-2. Renomeie para **"CombatController"**
-3. Cole o conteúdo de: `StarterPlayer_StarterPlayerScripts_CombatController.lua`
-
-#### ShadowController
-1. Em **StarterPlayer/StarterPlayerScripts**, insira um **ModuleScript**
-2. Renomeie para **"ShadowController"**
-3. Cole o conteúdo de: `StarterPlayer_StarterPlayerScripts_ShadowController.lua`
-
-#### UIController
-1. Em **StarterPlayer/StarterPlayerScripts**, insira um **ModuleScript**
-2. Renomeie para **"UIController"**
-3. Cole o conteúdo de: `StarterPlayer_StarterPlayerScripts_UIController.lua`
-
----
-
-## 🎨 PASSO 7: Criar Interfaces Gráficas
-
-### Em StarterGui/GameUI:
-
-#### 7.1 HUD (sempre visível)
-1. Em **GameUI**, insira um **Frame**
-2. Renomeie para **"HUD"**
-3. Configure:
-   - Size: `{0, 300},{0, 100}`
-   - Position: `{0, 10},{0, 10}`
-   - BackgroundColor3: `(30, 30, 30)`
-   - BackgroundTransparency: `0.3`
-
-4. Dentro do HUD, adicione:
-   - **TextLabel** "LevelLabel"
-     - Size: `{1, 0},{0.5, 0}`
-     - Text: "Nível: 1"
-   - **TextLabel** "CashLabel"
-     - Size: `{1, 0},{0.5, 0}`
-     - Position: `{0, 0},{0.5, 0}`
-     - Text: "💰 1000"
-
-#### 7.2 ShadowInventory
-1. Em **GameUI**, insira um **Frame**
-2. Renomeie para **"ShadowInventory"**
-3. Configure:
-   - Size: `{0, 600},{0, 400}`
-   - Position: `{0.5, -300},{0.5, -200}`
-   - BackgroundColor3: `(20, 20, 20)`
-   - Visible: `false`
-
-4. Adicione um **ScrollingFrame** dentro
-5. Adicione um **TextButton** "CloseButton" no canto superior direito
-
-#### 7.3 Backpack (Inventário)
-1. Em **GameUI**, insira um **Frame**
-2. Renomeie para **"Backpack"**
-3. Configure igual ao ShadowInventory
-4. Visible: `false`
-
-#### 7.4 Forge (Forja)
-1. Em **GameUI**, insira um **Frame**
-2. Renomeie para **"Forge"**
-3. Configure igual aos anteriores
-4. Visible: `false`
-
-#### 7.5 Ranking
-1. Em **GameUI**, insira um **Frame**
-2. Renomeie para **"Ranking"**
-3. Configure:
-   - Size: `{0, 500},{0, 600}`
-   - Position: `{0.5, -250},{0.5, -300}`
-   - BackgroundColor3: `(20, 20, 20)`
-   - Visible: `false`
-
-4. Adicione um **ScrollingFrame** dentro
-
-#### 7.6 DungeonUI
-1. Em **GameUI**, insira um **Frame**
-2. Renomeie para **"DungeonUI"**
-3. Configure igual aos anteriores
-4. Visible: `false`
-
----
-
-## ⚙️ PASSO 8: Configurar DataStore
-
-1. Vá em **Home > Game Settings** (ou pressione Alt+S)
-2. Clique na aba **Security**
-3. Ative **"Enable Studio Access to API Services"**
-4. Clique em **Save**
-
----
-
-## 🗺️ PASSO 9: Criar Área de Spawn de NPCs (Opcional)
-
-1. No **Workspace**, insira uma **Folder**
-2. Renomeie para **"NPCSpawns"**
-3. Adicione várias **Part** dentro desta pasta
-4. Posicione as Parts onde deseja que NPCs spawnem
-5. Marque todas as Parts como **Anchored = true**
-6. (Opcional) Deixe-as invisíveis: **Transparency = 1**
-
----
-
-## 🎮 PASSO 10: Testar o Jogo
-
-1. Pressione **F5** ou clique em **Play** para testar
-2. Verifique o **Output** para mensagens de inicialização:
-   - ✅ DataManager inicializado
-   - ✅ CombatSystem inicializado
-   - ✅ ShadowSystem inicializado
-   - etc.
-
-3. Teste os controles:
-   - **Clique esquerdo**: Atacar
-   - **B**: Abrir inventário
-   - **C**: Menu de sombras
-   - **F**: Forja
-   - **L**: Ranking
-
----
-
-## 🐛 PASSO 11: Solução de Problemas
-
-### Erro: "Attempt to index nil with..."
-**Solução**: Verifique se todos os módulos e eventos foram criados com os nomes corretos
+### Erro: "RemoteEvents not found"
+**Solução:** Certifique-se de que `RemoteEvents.lua` está em `ReplicatedStorage/Events` e é um **ModuleScript**
 
 ### Erro: "DataStore request was rejected"
-**Solução**: Certifique-se de que API Services está ativado e o jogo foi publicado
+**Solução:** 
+1. Publique o jogo no Roblox
+2. Habilite API Services nas configurações do jogo
 
-### NPCs não spawnam
-**Solução**: Crie a pasta "NPCSpawns" no Workspace com Parts de spawn
+### NPCs não aparecem
+**Solução:**
+1. Verifique se `MainServer` está rodando (veja Output)
+2. Certifique-se de que existe uma pasta `NPCs` no Workspace
+3. Verifique se não há erros no Output
 
-### Interface não aparece
-**Solução**: Verifique se todos os Frames foram criados dentro de StarterGui/GameUI
+### HUD não aparece
+**Solução:**
+1. Certifique-se de que `HUDController.lua` é um **LocalScript**
+2. Verifique se está na pasta correta: `StarterPlayer/StarterPlayerScripts/UI`
+3. Verifique o Output para erros
+
+### Sombras não são capturadas
+**Solução:**
+1. Aproxime-se do prompt de captura
+2. Pressione **E** para capturar (3 tentativas)
+3. Verifique se `ShadowClient.lua` está ativo
+
+## 📝 Checklist de Instalação
+
+- [ ] Estrutura de pastas criada
+- [ ] Todos os ModuleScripts adicionados ao ReplicatedStorage
+- [ ] Todos os Scripts do servidor adicionados
+- [ ] Todos os LocalScripts do cliente adicionados
+- [ ] MainServer.lua adicionado e configurado
+- [ ] API Services habilitado
+- [ ] Testado no Play Solo
+- [ ] Sem erros no Output
+
+## 🎮 Primeiros Passos Após Instalação
+
+1. **Spawne no jogo** - Você começará na Floresta Silenciosa (Zona Iniciante)
+2. **Ataque NPCs** - Clique ou pressione Espaço para atacar
+3. **Capture Sombras** - Após derrotar um NPC, pressione **E** para capturar ou **F** para destruir
+4. **Abra o Inventário** - Clique no botão "Inventário" no HUD
+5. **Complete Missões** - Suba de rank completando missões
+6. **Explore Zonas** - Use portais para acessar novas áreas
+
+## 🆘 Suporte
+
+Se encontrar problemas:
+1. Verifique o Output para mensagens de erro
+2. Certifique-se de que todos os arquivos estão nas pastas corretas
+3. Verifique se os tipos de script estão corretos (Script vs LocalScript vs ModuleScript)
+4. Recomece a instalação se necessário
+
+## 📚 Documentação Adicional
+
+- Ver `README.md` para visão geral do jogo
+- Ver `TECHNICAL_DOCUMENTATION.md` para detalhes técnicos
+- Ver `CONFIGURATION_GUIDE.md` para personalização
 
 ---
 
-## 📝 PASSO 12: Publicar o Jogo
-
-1. Clique em **File > Publish to Roblox**
-2. Escolha um nome e descrição
-3. Configure a visibilidade (Público/Privado)
-4. Clique em **Create** ou **Update**
-
----
-
-## 🎯 Recursos Adicionais
-
-### Melhorias Recomendadas:
-1. **Modelos 3D**: Substitua as Parts simples por modelos 3D reais de NPCs e sombras
-2. **Animações**: Adicione IDs de animação reais nos scripts de combate
-3. **Sons**: Adicione SoundIds reais para efeitos sonoros
-4. **UI Design**: Melhore o design das interfaces com UICorner, UIGradient, etc.
-5. **Mapas**: Crie áreas temáticas para diferentes ranks de NPCs
-6. **Boss Arenas**: Crie arenas especiais para Raids
-
-### Comandos Úteis para Teste:
-Você pode adicionar comandos de admin temporários para testar:
-- Dar cash
-- Dar diamantes
-- Dar sombras específicas
-- Teleportar para dungeons
-
----
-
-## ✅ Checklist Final
-
-- [ ] Todos os ModuleScripts em ReplicatedStorage/Modules
-- [ ] Todos os RemoteEvents em ReplicatedStorage/Events
-- [ ] Todos os Scripts em ServerScriptService/Core e Systems
-- [ ] Todos os LocalScripts em StarterPlayerScripts
-- [ ] Todas as Frames em StarterGui/GameUI
-- [ ] API Services ativado
-- [ ] Jogo publicado
-- [ ] Testado no Studio
-- [ ] Testado no jogo publicado
-
----
-
-## 🎊 Parabéns!
-
-Seu jogo **Arise Crossover** está pronto! Agora você pode:
-- Customizar sombras, armas e relíquias
-- Adicionar novos sistemas
-- Melhorar gráficos e UI
-- Criar dungeons e raids únicas
-- Adicionar Game Passes e Developer Products
-
-**Boa sorte com seu jogo! 🎮✨**
+**Desenvolvido para Roblox Studio**
+**Versão: 1.0**
