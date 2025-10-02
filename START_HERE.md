@@ -8,15 +8,22 @@ Você acabou de receber um **jogo completo de RPG de Ação** para Roblox, inspi
 
 ## 🚨 ALGO NÃO FUNCIONA?
 
-### ⚡ **SOLUÇÃO RÁPIDA:**
+### 🎨 **MENUS NÃO ABREM? (B, C, F, L)**
+👉 **[CORRIGIR_MENUS.md](CORRIGIR_MENUS.md)** - Solução para menus! ⭐
+
+**Scripts prontos:**
+- **MENU_CriarMenus_Script.lua** - Execute no servidor
+- **MENU_MenuController_LocalScript.lua** - Cole no cliente
+
+### ⚔️ **COMBATE NÃO FUNCIONA?**
 👉 **[CORRIGIR_AGORA.md](CORRIGIR_AGORA.md)** - Correção em 5 minutos!
+
+**Scripts de teste:**
+- **TESTE_RAPIDO_ServerScript.lua** - Cole no servidor
+- **TESTE_RAPIDO_ClientScript.lua** - Cole no cliente
 
 ### 🔧 **GUIA COMPLETO:**
 👉 **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** - Solução de problemas
-
-### 🧪 **SCRIPTS DE TESTE:**
-- **TESTE_RAPIDO_ServerScript.lua** - Cole no servidor
-- **TESTE_RAPIDO_ClientScript.lua** - Cole no cliente
 
 ---
 
