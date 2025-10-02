@@ -1,10 +1,8 @@
 # 🎮 SHADOW HUNTER - Jogo Completo para Roblox
 
-## ⚡ INSTALAÇÃO RÁPIDA
+## ⚡ INSTALAÇÃO MANUAL (5 MINUTOS)
 
-1. Entre na pasta **`JOGO_ATUALIZADO/`**
-2. Abra **`LEIA_PRIMEIRO.md`**
-3. Siga as instruções (leva 10 segundos!)
+Entre na pasta **`JOGO_ATUALIZADO/`** e leia **`LEIA_PRIMEIRO.md`**
 
 ---
 
@@ -13,8 +11,17 @@
 ```
 JOGO_ATUALIZADO/
 ├── LEIA_PRIMEIRO.md ⭐ COMECE AQUI!
-├── COMANDO_INSTALACAO.lua (Cole no F8)
-└── DOCUMENTACAO_COMPLETA.md (Detalhes técnicos)
+├── SCRIPTS/ (8 arquivos .lua)
+│   ├── 01_RankData.lua
+│   ├── 02_NPCData.lua
+│   ├── 03_ShadowData.lua
+│   ├── 04_RemoteEvents.lua
+│   ├── 05_DataManager.lua
+│   ├── 06_NPCManager.lua
+│   ├── 07_CombatSystem.lua
+│   └── 08_MainServer.lua
+├── DOCUMENTACAO_COMPLETA.md
+└── INSTALADOR_PARTES.md
 ```
 
 ---
@@ -30,20 +37,20 @@ JOGO_ATUALIZADO/
 
 ---
 
-## 🚀 Como Instalar
+## 🚀 Instalação
 
-### Método 1: F8 (Recomendado - 10 segundos)
-1. Abra Roblox Studio
-2. Pressione **F8**
-3. Copie `JOGO_ATUALIZADO/COMANDO_INSTALACAO.lua`
-4. Cole no Console
-5. Pressione Enter
-6. Aguarde 10 segundos
-7. Pressione **F5** para jogar!
+### ⏱️ Tempo: 5 minutos
+
+1. **Crie as pastas** (ReplicatedStorage, ServerScriptService, Workspace)
+2. **Crie 11 RemoteEvents** e **4 RemoteFunctions**
+3. **Copie os 8 scripts** da pasta SCRIPTS/
+4. **Pressione F5** para testar!
+
+**Instruções completas em:** `JOGO_ATUALIZADO/LEIA_PRIMEIRO.md`
 
 ---
 
-## 🎮 Gameplay
+## 🎮 Como Jogar
 
 1. Aproxime-se de um Goblin
 2. **Clique** para atacar
@@ -60,14 +67,18 @@ JOGO_ATUALIZADO/
 
 ---
 
-## 🎯 Sistemas Implementados
+## 🎯 NPCs Disponíveis
 
-✅ Sistema de Combate  
-✅ Sistema de NPCs (10 únicos)  
-✅ Sistema de Sombras  
-✅ Sistema de Ranks (F→GM)  
-✅ DataManager (save/load)  
-✅ RemoteEvents completos  
+1. Goblin Fraco (F) - 100 HP
+2. Slime (F) - 80 HP
+3. Goblin Guerreiro (E) - 250 HP
+4. Escorpião do Deserto (D) - 600 HP
+5. Guerreiro Orc (C) - 1,200 HP
+6. Yeti Congelado (B) - 2,500 HP
+7. Dragão Menor (A) - 5,000 HP
+8. **Goku (S)** - 12,000 HP ⭐
+9. **Vegeta (SS)** - 22,000 HP ⭐
+10. **Sung Jin-Woo (GM)** - 100,000 HP ⭐
 
 ---
 
