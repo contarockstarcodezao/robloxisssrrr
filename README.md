@@ -1,135 +1,76 @@
-# 🎮 Shadow Hunter - Jogo Completo de Roblox
+# 🎮 SHADOW HUNTER - Jogo Completo para Roblox
 
-## 📋 Descrição
-Shadow Hunter é um jogo inspirado em Solo Leveling onde você derrota NPCs, captura suas sombras e as usa em combate!
+## ⚡ INSTALAÇÃO RÁPIDA
 
-## ✨ Funcionalidades
+1. Entre na pasta **`JOGO_ATUALIZADO/`**
+2. Abra **`LEIA_PRIMEIRO.md`**
+3. Siga as instruções (leva 10 segundos!)
 
-### 🎯 Sistema de Combate
-- NPCs com IA básica que ficam parados
-- Barra de vida configurável
-- Sistema de dano balanceado
-- Drops personalizáveis por NPC
+---
 
-### 👥 Sistema de Sombras
-- **10 Ranks:** F, E, D, C, B, A, S, SS, SSS, GM
-- Captura de sombras ao derrotar NPCs
-- Sistema de equipamento (equipe até 3 sombras)
-- Sombras atacam inimigos dentro do range automaticamente
-- Chance de drop baseada no rank do NPC
-
-### 🎒 Inventários
-- **Inventário de Sombras:** Armazena todas as sombras capturadas
-- **Inventário de Armas:** Sistema de armas (expansível)
-
-### 📊 Sistema de Progressão
-- Sistema de Level e XP
-- Sistema de Ranks (F até GM)
-- Missões para subir de rank
-- Moedas: Cash e Diamantes
-
-### 🖼️ Interface UI (Estilo Anime)
-- HUD principal com Level, XP, Cash, Diamantes
-- Foto do personagem
-- Scoreboard com rankings
-- Inventários interativos
-- Prompts de captura de sombra
-
-### 🗺️ Mapas e Zonas
-- **Zona Iniciante (Rank F-E):** Floresta Silenciosa
-- **Zona Intermediária (Rank D-C):** Deserto Árido
-- **Zona Avançada (Rank B-A):** Montanhas Congeladas
-- **Zona Elite (Rank S-SS):** Vulcão Sombrio
-- **Zona Lendária (Rank SSS-GM):** Abismo Eterno
-- Sistema de portais entre zonas
-
-## 📂 Estrutura do Projeto
+## 📁 Estrutura
 
 ```
-ServerScriptService/
-├── Core/
-│   ├── DataManager.lua          # Gerenciamento de dados do jogador
-│   ├── RankSystem.lua            # Sistema de ranks
-│   └── MissionSystem.lua         # Sistema de missões
-├── Combat/
-│   ├── NPCManager.lua            # Gerenciamento de NPCs
-│   ├── CombatSystem.lua          # Sistema de combate
-│   └── ShadowSystem.lua          # Sistema de sombras
-├── Economy/
-│   └── DropSystem.lua            # Sistema de drops
-└── Zones/
-    └── ZoneManager.lua           # Gerenciamento de zonas
-
-ReplicatedStorage/
-├── Modules/
-│   ├── RankData.lua              # Dados dos ranks
-│   ├── NPCData.lua               # Dados dos NPCs
-│   └── ShadowData.lua            # Dados das sombras
-└── Events/
-    └── RemoteEvents.lua          # Eventos remotos
-
-StarterPlayer/StarterPlayerScripts/
-├── UI/
-│   ├── HUDController.lua         # Controlador do HUD
-│   ├── InventoryController.lua   # Controlador de inventários
-│   └── ScoreboardController.lua  # Controlador do scoreboard
-└── Client/
-    ├── CombatClient.lua          # Cliente de combate
-    └── ShadowClient.lua          # Cliente de sombras
-
-StarterGui/
-├── MainHUD/                      # HUD principal
-├── InventoryUI/                  # UI de inventários
-└── ScoreboardUI/                 # UI do scoreboard
-
-Workspace/
-├── Zones/
-│   ├── BeginnerZone/
-│   ├── IntermediateZone/
-│   ├── AdvancedZone/
-│   ├── EliteZone/
-│   └── LegendaryZone/
-└── NPCs/                         # Modelos de NPCs
+JOGO_ATUALIZADO/
+├── LEIA_PRIMEIRO.md ⭐ COMECE AQUI!
+├── COMANDO_INSTALACAO.lua (Cole no F8)
+└── DOCUMENTACAO_COMPLETA.md (Detalhes técnicos)
 ```
 
-## 🎮 Como Jogar
+---
 
-1. **Início:** Você começa no Rank F na Zona Iniciante
-2. **Combate:** Ataque NPCs para derrotá-los
-3. **Captura:**
-   - Pressione **E** para tentar capturar a sombra (3 tentativas)
-   - Pressione **F** para destruir e ganhar diamantes
-4. **Equipamento:** Abra o inventário e equipe suas sombras
-5. **Progressão:** Complete missões para subir de rank
-6. **Exploração:** Use portais para acessar novas zonas
+## ✨ O Que Você Vai Ter
 
-## 🔧 Configuração
+- ✅ **10 NPCs** (Goblin até Sung Jin-Woo)
+- ✅ **10 Ranks** (F até GM)
+- ✅ **Sistema de Sombras** completo
+- ✅ **Sistema de Combate** funcional
+- ✅ **Save/Load** automático
+- ✅ **Pronto para jogar!**
 
-### NPCs Configuráveis
-Edite `NPCData.lua` para adicionar/modificar NPCs:
-```lua
-{
-    Name = "Goku",
-    Rank = "S",
-    Health = 5000,
-    Damage = 50,
-    Drops = {...},
-    ShadowDropChance = 0.25
-}
-```
+---
 
-### Balanceamento
-- Ranks mais altos = maior chance de drop da mesma raridade
-- Sistema de XP progressivo
-- Dano e vida escalam com o rank
+## 🚀 Como Instalar
 
-## 🚀 Instalação
+### Método 1: F8 (Recomendado - 10 segundos)
+1. Abra Roblox Studio
+2. Pressione **F8**
+3. Copie `JOGO_ATUALIZADO/COMANDO_INSTALACAO.lua`
+4. Cole no Console
+5. Pressione Enter
+6. Aguarde 10 segundos
+7. Pressione **F5** para jogar!
 
-Use o comando de setup automático (ver SETUP_COMMAND.txt) ou instale manualmente seguindo a estrutura acima.
+---
 
-## 📝 Créditos
-Sistema inspirado em Solo Leveling / Sung Jin-Woo
-Desenvolvido para Roblox Studio
+## 🎮 Gameplay
 
-## 📄 Licença
-Livre para uso e modificação
+1. Aproxime-se de um Goblin
+2. **Clique** para atacar
+3. Mate o Goblin
+4. **Pressione E** para capturar sombra
+5. **Ou pressione F** para destruir e ganhar diamantes
+
+---
+
+## 📚 Documentação
+
+- **Instalação:** `JOGO_ATUALIZADO/LEIA_PRIMEIRO.md`
+- **Detalhes Técnicos:** `JOGO_ATUALIZADO/DOCUMENTACAO_COMPLETA.md`
+
+---
+
+## 🎯 Sistemas Implementados
+
+✅ Sistema de Combate  
+✅ Sistema de NPCs (10 únicos)  
+✅ Sistema de Sombras  
+✅ Sistema de Ranks (F→GM)  
+✅ DataManager (save/load)  
+✅ RemoteEvents completos  
+
+---
+
+**Desenvolvido para Roblox Studio**  
+**Inspirado em Solo Leveling**  
+**100% Funcional e Pronto para Uso** 🎉
