@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Mim | Hiro</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/sobre.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Playfair+Display:wght@400;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Canvas de Fundo -->
+    <canvas id="background-canvas"></canvas>
+
+    <!-- Cursor Customizado -->
+    <div class="custom-cursor">
+        <div class="cursor-dot"></div>
+        <div class="cursor-circle"></div>
+    </div>
+
+    <!-- Navegação -->
+    <nav id="main-nav">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">
+                <span class="logo-kanji">廣</span>
+                <span class="logo-text">Hiro</span>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="../index.html" class="nav-link">Início</a></li>
+                <li><a href="sobre.html" class="nav-link active">Sobre Mim</a></li>
+                <li><a href="portfolio.html" class="nav-link">Portfólio</a></li>
+                <li><a href="servicos.html" class="nav-link">Serviços</a></li>
+                <li><a href="blog.html" class="nav-link">Blog</a></li>
+                <li><a href="contato.html" class="nav-link btn-contact">Contato</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <button id="theme-toggle" class="icon-btn">
+                    <svg class="sun-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    <svg class="moon-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                </button>
+                <button id="sound-toggle" class="icon-btn">
+                    <svg class="sound-on" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                    <svg class="sound-off" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+                </button>
+                <button class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero da Página -->
+    <section class="page-hero">
+        <div class="container">
+            <div class="hero-content">
+                <span class="page-subtitle" data-aos="fade-up">私について</span>
+                <h1 class="page-title" data-aos="fade-up" data-aos-delay="100">
+                    Minha <span class="highlight">Jornada</span>
+                </h1>
+                <p class="page-description" data-aos="fade-up" data-aos-delay="200">
+                    Uma história de paixão, dedicação e inovação
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Interativa -->
+    <section class="timeline-section">
+        <div class="container">
+            <div class="timeline">
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-marker">
+                        <span class="year">2015</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>O Início</h3>
+                        <p>
+                            Fascinado pela união entre arte japonesa e tecnologia, comecei minha jornada 
+                            criando meus primeiros designs em papel, inspirado por mangás e jogos.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-left">
+                    <div class="timeline-marker">
+                        <span class="year">2017</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Primeiros Projetos</h3>
+                        <p>
+                            Lancei meu primeiro site profissional e comecei a trabalhar com clientes 
+                            locais, desenvolvendo identidades visuais únicas.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-marker">
+                        <span class="year">2019</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Expansão Internacional</h3>
+                        <p>
+                            Comecei a trabalhar com clientes de diversos países, unindo minha herança 
+                            japonesa com tendências globais de design.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-left">
+                    <div class="timeline-marker">
+                        <span class="year">2021</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Reconhecimento</h3>
+                        <p>
+                            Projetos premiados em competições internacionais de design e desenvolvimento,
+                            consolidando minha presença no mercado.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-marker">
+                        <span class="year">2023</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Presente</h3>
+                        <p>
+                            Hoje, continuo criando experiências digitais únicas, sempre buscando inovação
+                            e excelência em cada projeto.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Perfil Detalhado -->
+    <section class="profile-section">
+        <div class="container">
+            <div class="profile-grid">
+                <div class="profile-image" data-aos="fade-right">
+                    <div class="image-wrapper">
+                        <img src="https://via.placeholder.com/500x600/c41e3a/ffffff?text=Hiro" alt="Hiro">
+                        <div class="image-frame"></div>
+                        <div class="image-pattern"></div>
+                    </div>
+                </div>
+
+                <div class="profile-content" data-aos="fade-left">
+                    <h2 class="section-title">Quem sou eu</h2>
+                    <div class="profile-text">
+                        <p>
+                            Nasci em São Paulo, Brasil, carregando em meu DNA a rica herança cultural 
+                            japonesa de meus ancestrais. Desde criança, fui fascinado por duas paixões 
+                            aparentemente distintas: <strong>a arte tradicional japonesa</strong> e 
+                            <strong>a magia da programação</strong>.
+                        </p>
+                        <p>
+                            Minha jornada começou desenhando mangás em cadernos escolares e criando 
+                            meus primeiros jogos em papel. Essa paixão dual me levou a estudar tanto 
+                            Design Gráfico quanto Ciência da Computação, buscando a perfeita harmonia 
+                            entre estética e funcionalidade.
+                        </p>
+                        <p>
+                            Hoje, transformo ideias em experiências digitais únicas, unindo a estética 
+                            minimalista do design japonês com código limpo e eficiente. Cada projeto é 
+                            uma obra de arte digital, uma ponte entre <span class="highlight">tradição e inovação</span>, 
+                            onde pixels encontram pinceladas e algoritmos dançam com criatividade.
+                        </p>
+                        <p>
+                            Acredito que o verdadeiro design não é apenas sobre aparência, mas sobre 
+                            criar conexões emocionais e experiências memoráveis que transcendem a tela.
+                        </p>
+                    </div>
+
+                    <div class="profile-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Nome</span>
+                            <span class="detail-value">Hiro Tanaka</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Localização</span>
+                            <span class="detail-value">São Paulo, Brasil</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Experiência</span>
+                            <span class="detail-value">8+ Anos</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">E-mail</span>
+                            <span class="detail-value">contato@hiro.dev</span>
+                        </div>
+                    </div>
+
+                    <a href="../assets/curriculo-hiro.pdf" class="btn btn-primary" download>
+                        <span>Download CV</span>
+                        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Avançadas -->
+    <section class="skills-advanced">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-subtitle">スキル</span>
+                <h2 class="section-title">Habilidades & Expertise</h2>
+            </div>
+
+            <div class="skills-tabs">
+                <button class="skills-tab active" data-tab="design">
+                    <svg viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+                    <span>Design</span>
+                </button>
+                <button class="skills-tab" data-tab="dev">
+                    <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                    <span>Desenvolvimento</span>
+                </button>
+                <button class="skills-tab" data-tab="tools">
+                    <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                    <span>Ferramentas</span>
+                </button>
+            </div>
+
+            <div class="skills-content">
+                <!-- Design Tab -->
+                <div class="skills-panel active" data-panel="design">
+                    <div class="skills-grid">
+                        <div class="skill-item" data-aos="fade-up">
+                            <div class="skill-icon">🎨</div>
+                            <h3>UI/UX Design</h3>
+                            <div class="skill-level">
+                                <div class="skill-bar" style="--progress: 95%"></div>
+                                <span class="skill-percent">95%</span>
+                            </div>
+                            <p>Interfaces intuitivas e experiências memoráveis</p>
+                        </div>
+
+                        <div class="skill-item" data-aos="fade-up" data-aos-delay="100">
+                            <div class="skill-icon">🖌️</div>
+                            <h3>Ilustração Digital</h3>
+                            <div class="skill-level">
+                                <div class="skill-bar" style="--progress: 90%"></div>
+                                <span class="skill-percent">90%</span>
+                            </div>
+                            <p>Arte digital com influências orientais</p>
+                        </div>
+
+                        <div class="skill-item" data-aos="fade-up" data-aos-delay="200">
+                            <div class="skill-icon">🎬</div>
+                            <h3>Motion Design</h3>
+                            <div class="skill-level">
+                                <div class="skill-bar" style="--progress: 85%"></div>
+                                <span class="skill-percent">85%</span>
+                            </div>
+                            <p>Animações fluidas e transições suaves</p>
+                        </div>
+
+                        <div class="skill-item" data-aos="fade-up" data-aos-delay="300">
+                            <div class="skill-icon">🏷️</div>
+                            <h3>Branding</h3>
+                            <div class="skill-level">
+                                <div class="skill-bar" style="--progress: 88%"></div>
+                                <span class="skill-percent">88%</span>
+                            </div>
+                            <p>Identidades visuais marcantes</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dev Tab -->
+                <div class="skills-panel" data-panel="dev">
+                    <div class="skills-grid">
+                        <div class="skill-item" data-aos="fade-up">
+                            <div class="skill-icon">⚛️</div>
+                            <h3>React & Next.js</h3>
+                            <div class="skill-level">
+                                <div class="skill-bar" style="--progress: 92%"></div>
+                                <span class="skill-percent">92%</span>
+                            </div>
+                            <p>Aplicações web modernas e performáticas</p>
+                        </div>
+
+                        <div class="skill-item" data-aos="fade-up" data-aos-delay="100">
+                            <div class="skill-icon">🟢</div>
+                            <h3>Node.js</h3>
+                            <div class="skill-level">
+                                <div class="skill-bar" style="--progress: 88%"></div>
+                                <span class="skill-percent">88%</span>
+                            </div>
+                            <p>Backend escalável e APIs REST</p>
+                        </div>
+
+                        <div class="skill-item" data-aos="fade-up" data-aos-delay="200">
+                            <div class="skill-icon">🐍</div>
+                            <h3>Python</h3>
+                            <div class="skill-level">
+                                <div class="skill-bar" style="--progress: 85%"></div>
+                                <span class="skill-percent">85%</span>
+                            </div>
+                            <p>Automação e desenvolvimento de jogos</p>
+                        </div>
+
+                        <div class="skill-item" data-aos="fade-up" data-aos-delay="300">
+                            <div class="skill-icon">📱</div>
+                            <h3>React Native</h3>
+                            <div class="skill-level">
+                                <div class="skill-bar" style="--progress: 80%"></div>
+                                <span class="skill-percent">80%</span>
+                            </div>
+                            <p>Apps mobile multiplataforma</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tools Tab -->
+                <div class="skills-panel" data-panel="tools">
+                    <div class="tools-grid" data-aos="fade-up">
+                        <div class="tool-badge">Figma</div>
+                        <div class="tool-badge">Adobe XD</div>
+                        <div class="tool-badge">Photoshop</div>
+                        <div class="tool-badge">Illustrator</div>
+                        <div class="tool-badge">After Effects</div>
+                        <div class="tool-badge">Premiere Pro</div>
+                        <div class="tool-badge">Blender</div>
+                        <div class="tool-badge">VS Code</div>
+                        <div class="tool-badge">Git/GitHub</div>
+                        <div class="tool-badge">Docker</div>
+                        <div class="tool-badge">Firebase</div>
+                        <div class="tool-badge">MongoDB</div>
+                        <div class="tool-badge">PostgreSQL</div>
+                        <div class="tool-badge">AWS</div>
+                        <div class="tool-badge">Vercel</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Valores e Filosofia -->
+    <section class="philosophy-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-subtitle">哲学</span>
+                <h2 class="section-title">Minha Filosofia</h2>
+            </div>
+
+            <div class="philosophy-grid">
+                <div class="philosophy-card" data-aos="zoom-in">
+                    <div class="philosophy-number">01</div>
+                    <h3>Simplicidade</h3>
+                    <p>
+                        Inspirado pelo conceito japonês de <em>Ma</em> (間), acredito que o espaço vazio 
+                        é tão importante quanto os elementos visíveis.
+                    </p>
+                </div>
+
+                <div class="philosophy-card" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="philosophy-number">02</div>
+                    <h3>Perfeição</h3>
+                    <p>
+                        Seguindo o espírito <em>Kodawari</em> (こだわり), busco a excelência e atenção 
+                        aos mínimos detalhes em cada projeto.
+                    </p>
+                </div>
+
+                <div class="philosophy-card" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="philosophy-number">03</div>
+                    <h3>Inovação</h3>
+                    <p>
+                        Unindo tradição e modernidade, crio soluções que respeitam o passado enquanto 
+                        abraçam o futuro.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content" data-aos="zoom-in">
+                <h2 class="cta-title">Gostou do que viu?</h2>
+                <p class="cta-description">
+                    Vamos transformar sua ideia em realidade
+                </p>
+                <div class="cta-buttons">
+                    <a href="portfolio.html" class="btn btn-primary">
+                        <span>Ver Meus Projetos</span>
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                    <a href="contato.html" class="btn btn-secondary">
+                        <span>Entre em Contato</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span class="logo-kanji">廣</span>
+                        <span class="logo-text">Hiro</span>
+                    </div>
+                    <p class="footer-tagline">
+                        Unindo tradição e inovação através do design
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></a>
+                        <a href="#" class="social-link"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+                        <a href="#" class="social-link"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+                        <a href="#" class="social-link"><svg viewBox="0 0 24 24"><path d="M8.5 7c4.5 0 4.5 4.5 2 6 3.5 1 4 6 0 6H2V7h6.5zM2 10h5.5c1.5 0 1.5-3 0-3H2v3zm6 3H2v4h6c2 0 2-4 0-4zm8.5-4h5M18 17c1.5 0 2.5-1.5 2.5-3s-1-3-2.5-3-2.5 1.5-2.5 3 1 3 2.5 3z"/></svg></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h3>Navegação</h3>
+                        <ul>
+                            <li><a href="../index.html">Início</a></li>
+                            <li><a href="sobre.html">Sobre Mim</a></li>
+                            <li><a href="portfolio.html">Portfólio</a></li>
+                            <li><a href="servicos.html">Serviços</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h3>Contato</h3>
+                        <ul>
+                            <li><a href="mailto:contato@hiro.dev">contato@hiro.dev</a></li>
+                            <li><a href="tel:+5511999999999">+55 11 99999-9999</a></li>
+                            <li><a href="contato.html">Formulário</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Hiro. Todos os direitos reservados.</p>
+                <p class="footer-quote">廣 - Arte e código unidos pela paixão</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/global.js"></script>
+    <script src="../js/sobre.js"></script>
+</body>
+</html>
