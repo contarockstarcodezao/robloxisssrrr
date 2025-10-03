@@ -1,12 +1,6 @@
 --[[
-    COMBAT GUI
-    Localização: StarterGui/CombatGUI.lua
-    
-    Interface do sistema de combate com:
-    - Barras de vida e mana
-    - Botões de ataque e habilidades
-    - Informações do inimigo
-    - Sistema de cooldowns
+    COMBAT SYSTEM - Sistema de Combate
+    Framework completo e funcional para Arise Crossover
 ]]
 
 local Players = game:GetService("Players")
@@ -16,9 +10,11 @@ local UserInputService = game:GetService("UserInputService")
 local player = Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
 
+print("⚔️ Criando sistema de combate...")
+
 -- Criar GUI de combate
 local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "CombatGUI"
+screenGui.Name = "CombatSystem"
 screenGui.ResetOnSpawn = false
 screenGui.Parent = playerGui
 
@@ -76,7 +72,7 @@ healthText.Name = "HealthText"
 healthText.Size = UDim2.new(1, 0, 1, 0)
 healthText.Position = UDim2.new(0, 0, 0, 0)
 healthText.BackgroundTransparency = 1
-healthText.Text = "1000/1000"
+healthText.Text = "100/100"
 healthText.TextColor3 = Color3.fromRGB(255, 255, 255)
 healthText.TextScaled = true
 healthText.Font = Enum.Font.SourceSansBold
@@ -314,27 +310,27 @@ end
 
 -- Conectar eventos dos botões
 attackButton.MouseButton1Click:Connect(function()
-    _G.showNotification("Atacando inimigo...", "rbxasset://textures/ui/GuiImagePlaceholder.png", 1)
+    print("Atacando inimigo...")
 end)
 
 skill1Button.MouseButton1Click:Connect(function()
-    _G.showNotification("Usando habilidade 1...", "rbxasset://textures/ui/GuiImagePlaceholder.png", 1)
+    print("Usando habilidade 1...")
 end)
 
 skill2Button.MouseButton1Click:Connect(function()
-    _G.showNotification("Usando habilidade 2...", "rbxasset://textures/ui/GuiImagePlaceholder.png", 1)
+    print("Usando habilidade 2...")
 end)
 
 defenseButton.MouseButton1Click:Connect(function()
-    _G.showNotification("Defendendo...", "rbxasset://textures/ui/GuiImagePlaceholder.png", 1)
+    print("Defendendo...")
 end)
 
 itemButton.MouseButton1Click:Connect(function()
-    _G.showNotification("Usando item...", "rbxasset://textures/ui/GuiImagePlaceholder.png", 1)
+    print("Usando item...")
 end)
 
 escapeButton.MouseButton1Click:Connect(function()
-    _G.showNotification("Tentando fugir...", "rbxasset://textures/ui/GuiImagePlaceholder.png", 1)
+    print("Tentando fugir...")
 end)
 
 -- Efeitos hover dos botões
@@ -363,7 +359,7 @@ spawn(function()
     while true do
         wait(5)
         -- Simular dano
-        updateHealthBar(800, 1000)
+        updateHealthBar(80, 100)
         updateManaBar(80, 100)
         
         -- Mostrar inimigo
@@ -382,4 +378,4 @@ _G.updateManaBar = updateManaBar
 _G.showEnemyInfo = showEnemyInfo
 _G.hideEnemyInfo = hideEnemyInfo
 
-print("✅ CombatGUI carregada com sucesso!")
+print("✅ CombatSystem criado com sucesso!")

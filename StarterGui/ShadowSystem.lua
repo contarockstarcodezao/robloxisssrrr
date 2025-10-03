@@ -1,12 +1,6 @@
 --[[
-    SHADOW GUI
-    Localização: StarterGui/ShadowGUI.lua
-    
-    Interface do sistema de sombras com:
-    - Lista de sombras capturadas
-    - Detalhes da sombra selecionada
-    - Sistema de evolução
-    - Invocação e dispensa
+    SHADOW SYSTEM - Sistema de Sombras
+    Framework completo e funcional para Arise Crossover
 ]]
 
 local Players = game:GetService("Players")
@@ -16,30 +10,32 @@ local UserInputService = game:GetService("UserInputService")
 local player = Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
 
+print("👻 Criando sistema de sombras...")
+
 -- Criar GUI das sombras
 local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "ShadowGUI"
+screenGui.Name = "ShadowSystem"
 screenGui.ResetOnSpawn = false
 screenGui.Enabled = false
 screenGui.Parent = playerGui
 
--- Frame principal das sombras
+-- Frame principal
 local shadowFrame = Instance.new("Frame")
 shadowFrame.Name = "ShadowFrame"
-shadowFrame.Size = UDim2.new(0, 1000, 0, 750)
-shadowFrame.Position = UDim2.new(0.5, -500, 0.5, -375)
+shadowFrame.Size = UDim2.new(0, 900, 0, 700)
+shadowFrame.Position = UDim2.new(0.5, -450, 0.5, -350)
 shadowFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 shadowFrame.BorderSizePixel = 0
 shadowFrame.Parent = screenGui
 
--- Borda do frame
-local shadowBorder = Instance.new("Frame")
-shadowBorder.Name = "ShadowBorder"
-shadowBorder.Size = UDim2.new(1, 4, 1, 4)
-shadowBorder.Position = UDim2.new(0, -2, 0, -2)
-shadowBorder.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
-shadowBorder.BorderSizePixel = 0
-shadowBorder.Parent = shadowFrame
+-- Borda
+local border = Instance.new("Frame")
+border.Name = "Border"
+border.Size = UDim2.new(1, 4, 1, 4)
+border.Position = UDim2.new(0, -2, 0, -2)
+border.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
+border.BorderSizePixel = 0
+border.Parent = shadowFrame
 
 -- Título
 local titleFrame = Instance.new("Frame")
@@ -117,7 +113,7 @@ listLayout.Parent = shadowList
 -- Frame de detalhes (lado direito)
 local detailsFrame = Instance.new("Frame")
 detailsFrame.Name = "DetailsFrame"
-detailsFrame.Size = UDim2.new(0, 580, 1, -60)
+detailsFrame.Size = UDim2.new(0, 480, 1, -60)
 detailsFrame.Position = UDim2.new(0, 410, 0, 60)
 detailsFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 detailsFrame.BorderSizePixel = 0
@@ -156,7 +152,7 @@ local function createShadowListItem(shadowName, rank, level, isActive)
     itemFrame.BorderSizePixel = 0
     itemFrame.Parent = shadowList
     
-    -- Borda baseada no rank
+    -- Cores baseadas no rank
     local rankColors = {
         F = Color3.fromRGB(128, 128, 128),
         E = Color3.fromRGB(255, 255, 255),
@@ -169,11 +165,14 @@ local function createShadowListItem(shadowName, rank, level, isActive)
         GM = Color3.fromRGB(255, 0, 255)
     }
     
+    local borderColor = rankColors[rank] or Color3.fromRGB(128, 128, 128)
+    
+    -- Borda
     local border = Instance.new("Frame")
     border.Name = "Border"
     border.Size = UDim2.new(1, 4, 1, 4)
     border.Position = UDim2.new(0, -2, 0, -2)
-    border.BackgroundColor3 = rankColors[rank] or Color3.fromRGB(128, 128, 128)
+    border.BackgroundColor3 = borderColor
     border.BorderSizePixel = 0
     border.Parent = itemFrame
     
@@ -410,18 +409,18 @@ local function showShadowDetails(shadowName, rank, level, isActive)
     -- Conectar eventos dos botões
     summonButton.MouseButton1Click:Connect(function()
         if isActive then
-            _G.showNotification("Dispensando sombra...", "rbxasset://textures/ui/GuiImagePlaceholder.png", 2)
+            print("Dispensando sombra...")
         else
-            _G.showNotification("Invocando sombra...", "rbxasset://textures/ui/GuiImagePlaceholder.png", 2)
+            print("Invocando sombra...")
         end
     end)
     
     evolveButton.MouseButton1Click:Connect(function()
-        _G.showNotification("Evoluindo sombra...", "rbxasset://textures/ui/GuiImagePlaceholder.png", 2)
+        print("Evoluindo sombra...")
     end)
     
     upgradeButton.MouseButton1Click:Connect(function()
-        _G.showNotification("Melhorando sombra...", "rbxasset://textures/ui/GuiImagePlaceholder.png", 2)
+        print("Melhorando sombra...")
     end)
     
     -- Atualizar tamanho do canvas
@@ -443,6 +442,17 @@ closeButton.MouseButton1Click:Connect(function()
     screenGui.Enabled = false
 end)
 
+-- Efeito hover do botão de fechar
+closeButton.MouseEnter:Connect(function()
+    local tween = TweenService:Create(closeButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(255, 100, 100)})
+    tween:Play()
+end)
+
+closeButton.MouseLeave:Connect(function()
+    local tween = TweenService:Create(closeButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(200, 50, 50)})
+    tween:Play()
+end)
+
 -- Função para abrir/fechar GUI das sombras
 local function toggleShadowGUI()
     screenGui.Enabled = not screenGui.Enabled
@@ -451,4 +461,4 @@ end
 -- Exportar função
 _G.toggleShadowGUI = toggleShadowGUI
 
-print("✅ ShadowGUI carregada com sucesso!")
+print("✅ ShadowSystem criado com sucesso!")

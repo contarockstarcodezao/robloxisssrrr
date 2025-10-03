@@ -1,12 +1,6 @@
 --[[
-    INVENTORY GUI
-    Localização: StarterGui/InventoryGUI.lua
-    
-    Interface do sistema de inventário com:
-    - Abas para diferentes tipos de itens
-    - Grid de itens com ícones
-    - Sistema de filtros e ordenação
-    - Expansão de slots
+    INVENTORY SYSTEM - Sistema de Inventário
+    Framework completo e funcional para Arise Crossover
 ]]
 
 local Players = game:GetService("Players")
@@ -16,41 +10,42 @@ local UserInputService = game:GetService("UserInputService")
 local player = Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
 
+print("📦 Criando sistema de inventário...")
+
 -- Criar GUI do inventário
 local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "InventoryGUI"
+screenGui.Name = "InventorySystem"
 screenGui.ResetOnSpawn = false
 screenGui.Enabled = false
 screenGui.Parent = playerGui
 
--- Frame principal do inventário
+-- Frame principal
 local inventoryFrame = Instance.new("Frame")
 inventoryFrame.Name = "InventoryFrame"
-inventoryFrame.Size = UDim2.new(0, 900, 0, 700)
-inventoryFrame.Position = UDim2.new(0.5, -450, 0.5, -350)
+inventoryFrame.Size = UDim2.new(0, 800, 0, 600)
+inventoryFrame.Position = UDim2.new(0.5, -400, 0.5, -300)
 inventoryFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 inventoryFrame.BorderSizePixel = 0
 inventoryFrame.Parent = screenGui
 
--- Borda do inventário
-local inventoryBorder = Instance.new("Frame")
-inventoryBorder.Name = "InventoryBorder"
-inventoryBorder.Size = UDim2.new(1, 4, 1, 4)
-inventoryBorder.Position = UDim2.new(0, -2, 0, -2)
-inventoryBorder.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
-inventoryBorder.BorderSizePixel = 0
-inventoryBorder.Parent = inventoryFrame
+-- Borda
+local border = Instance.new("Frame")
+border.Name = "Border"
+border.Size = UDim2.new(1, 4, 1, 4)
+border.Position = UDim2.new(0, -2, 0, -2)
+border.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
+border.BorderSizePixel = 0
+border.Parent = inventoryFrame
 
--- Título do inventário
+-- Título
 local titleFrame = Instance.new("Frame")
 titleFrame.Name = "TitleFrame"
-titleFrame.Size = UDim2.new(1, 0, 0, 60)
+titleFrame.Size = UDim2.new(1, 0, 0, 50)
 titleFrame.Position = UDim2.new(0, 0, 0, 0)
 titleFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 titleFrame.BorderSizePixel = 0
 titleFrame.Parent = inventoryFrame
 
--- Título
 local titleLabel = Instance.new("TextLabel")
 titleLabel.Name = "TitleLabel"
 titleLabel.Size = UDim2.new(1, -60, 1, 0)
@@ -76,22 +71,11 @@ closeButton.TextScaled = true
 closeButton.Font = Enum.Font.SourceSansBold
 closeButton.Parent = titleFrame
 
--- Efeito hover do botão de fechar
-closeButton.MouseEnter:Connect(function()
-    local tween = TweenService:Create(closeButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(255, 100, 100)})
-    tween:Play()
-end)
-
-closeButton.MouseLeave:Connect(function()
-    local tween = TweenService:Create(closeButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(200, 50, 50)})
-    tween:Play()
-end)
-
--- Frame das abas
+-- Frame de abas
 local tabFrame = Instance.new("Frame")
 tabFrame.Name = "TabFrame"
-tabFrame.Size = UDim2.new(1, 0, 0, 50)
-tabFrame.Position = UDim2.new(0, 0, 0, 60)
+tabFrame.Size = UDim2.new(1, 0, 0, 40)
+tabFrame.Position = UDim2.new(0, 0, 0, 50)
 tabFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 tabFrame.BorderSizePixel = 0
 tabFrame.Parent = inventoryFrame
@@ -99,7 +83,7 @@ tabFrame.Parent = inventoryFrame
 -- Aba de armas
 local weaponTab = Instance.new("TextButton")
 weaponTab.Name = "WeaponTab"
-weaponTab.Size = UDim2.new(0, 120, 1, 0)
+weaponTab.Size = UDim2.new(0, 100, 1, 0)
 weaponTab.Position = UDim2.new(0, 0, 0, 0)
 weaponTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
 weaponTab.BorderSizePixel = 0
@@ -112,8 +96,8 @@ weaponTab.Parent = tabFrame
 -- Aba de sombras
 local shadowTab = Instance.new("TextButton")
 shadowTab.Name = "ShadowTab"
-shadowTab.Size = UDim2.new(0, 120, 1, 0)
-shadowTab.Position = UDim2.new(0, 120, 0, 0)
+shadowTab.Size = UDim2.new(0, 100, 1, 0)
+shadowTab.Position = UDim2.new(0, 100, 0, 0)
 shadowTab.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 shadowTab.BorderSizePixel = 0
 shadowTab.Text = "👻 SOMBRAS"
@@ -125,8 +109,8 @@ shadowTab.Parent = tabFrame
 -- Aba de relíquias
 local relicTab = Instance.new("TextButton")
 relicTab.Name = "RelicTab"
-relicTab.Size = UDim2.new(0, 120, 1, 0)
-relicTab.Position = UDim2.new(0, 240, 0, 0)
+relicTab.Size = UDim2.new(0, 100, 1, 0)
+relicTab.Position = UDim2.new(0, 200, 0, 0)
 relicTab.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 relicTab.BorderSizePixel = 0
 relicTab.Text = "💎 RELÍQUIAS"
@@ -138,8 +122,8 @@ relicTab.Parent = tabFrame
 -- Aba de poções
 local potionTab = Instance.new("TextButton")
 potionTab.Name = "PotionTab"
-potionTab.Size = UDim2.new(0, 120, 1, 0)
-potionTab.Position = UDim2.new(0, 360, 0, 0)
+potionTab.Size = UDim2.new(0, 100, 1, 0)
+potionTab.Position = UDim2.new(0, 300, 0, 0)
 potionTab.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 potionTab.BorderSizePixel = 0
 potionTab.Text = "🧪 POÇÕES"
@@ -151,8 +135,8 @@ potionTab.Parent = tabFrame
 -- Aba de fragmentos
 local fragmentTab = Instance.new("TextButton")
 fragmentTab.Name = "FragmentTab"
-fragmentTab.Size = UDim2.new(0, 120, 1, 0)
-fragmentTab.Position = UDim2.new(0, 480, 0, 0)
+fragmentTab.Size = UDim2.new(0, 100, 1, 0)
+fragmentTab.Position = UDim2.new(0, 400, 0, 0)
 fragmentTab.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 fragmentTab.BorderSizePixel = 0
 fragmentTab.Text = "💎 FRAGMENTOS"
@@ -161,78 +145,11 @@ fragmentTab.TextScaled = true
 fragmentTab.Font = Enum.Font.SourceSansBold
 fragmentTab.Parent = tabFrame
 
--- Frame de controles
-local controlsFrame = Instance.new("Frame")
-controlsFrame.Name = "ControlsFrame"
-controlsFrame.Size = UDim2.new(1, 0, 0, 40)
-controlsFrame.Position = UDim2.new(0, 0, 0, 110)
-controlsFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-controlsFrame.BorderSizePixel = 0
-controlsFrame.Parent = inventoryFrame
-
--- Botão de ordenar
-local sortButton = Instance.new("TextButton")
-sortButton.Name = "SortButton"
-sortButton.Size = UDim2.new(0, 100, 0, 30)
-sortButton.Position = UDim2.new(0, 10, 0.5, -15)
-sortButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-sortButton.BorderSizePixel = 0
-sortButton.Text = "🔄 Ordenar"
-sortButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-sortButton.TextScaled = true
-sortButton.Font = Enum.Font.SourceSansBold
-sortButton.Parent = controlsFrame
-
--- Botão de filtrar
-local filterButton = Instance.new("TextButton")
-filterButton.Name = "FilterButton"
-filterButton.Size = UDim2.new(0, 100, 0, 30)
-filterButton.Position = UDim2.new(0, 120, 0.5, -15)
-filterButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-filterButton.BorderSizePixel = 0
-filterButton.Text = "🔍 Filtrar"
-filterButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-filterButton.TextScaled = true
-filterButton.Font = Enum.Font.SourceSansBold
-filterButton.Parent = controlsFrame
-
--- Botão de expandir
-local expandButton = Instance.new("TextButton")
-expandButton.Name = "ExpandButton"
-expandButton.Size = UDim2.new(0, 120, 0, 30)
-expandButton.Position = UDim2.new(1, -130, 0.5, -15)
-expandButton.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
-expandButton.BorderSizePixel = 0
-expandButton.Text = "📈 Expandir"
-expandButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-expandButton.TextScaled = true
-expandButton.Font = Enum.Font.SourceSansBold
-expandButton.Parent = controlsFrame
-
--- Informações do inventário
-local infoFrame = Instance.new("Frame")
-infoFrame.Name = "InfoFrame"
-infoFrame.Size = UDim2.new(0, 200, 0, 30)
-infoFrame.Position = UDim2.new(0.5, -100, 0.5, -15)
-infoFrame.BackgroundTransparency = 1
-infoFrame.Parent = controlsFrame
-
-local infoLabel = Instance.new("TextLabel")
-infoLabel.Name = "InfoLabel"
-infoLabel.Size = UDim2.new(1, 0, 1, 0)
-infoLabel.Position = UDim2.new(0, 0, 0, 0)
-infoLabel.BackgroundTransparency = 1
-infoLabel.Text = "Slots: 20/50"
-infoLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
-infoLabel.TextScaled = true
-infoLabel.Font = Enum.Font.SourceSans
-infoLabel.Parent = infoFrame
-
 -- Frame de conteúdo
 local contentFrame = Instance.new("Frame")
 contentFrame.Name = "ContentFrame"
-contentFrame.Size = UDim2.new(1, -20, 1, -160)
-contentFrame.Position = UDim2.new(0, 10, 0, 150)
+contentFrame.Size = UDim2.new(1, -20, 1, -100)
+contentFrame.Position = UDim2.new(0, 10, 0, 90)
 contentFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 contentFrame.BorderSizePixel = 0
 contentFrame.Parent = inventoryFrame
@@ -265,12 +182,22 @@ local function createInventoryItem(itemName, itemType, quantity, rarity)
     itemFrame.BorderSizePixel = 0
     itemFrame.Parent = itemGrid
     
-    -- Borda baseada na raridade
+    -- Cores baseadas na raridade
+    local rarityColors = {
+        Common = Color3.fromRGB(128, 128, 128),
+        Rare = Color3.fromRGB(0, 255, 0),
+        Epic = Color3.fromRGB(128, 0, 255),
+        Legendary = Color3.fromRGB(255, 215, 0)
+    }
+    
+    local borderColor = rarityColors[rarity] or Color3.fromRGB(128, 128, 128)
+    
+    -- Borda
     local border = Instance.new("Frame")
     border.Name = "Border"
     border.Size = UDim2.new(1, 4, 1, 4)
     border.Position = UDim2.new(0, -2, 0, -2)
-    border.BackgroundColor3 = rarity or Color3.fromRGB(128, 128, 128)
+    border.BackgroundColor3 = borderColor
     border.BorderSizePixel = 0
     border.Parent = itemFrame
     
@@ -343,27 +270,22 @@ local function switchTab(activeTab)
     
     -- Adicionar itens baseados na aba
     if activeTab == weaponTab then
-        -- Adicionar armas de exemplo
-        createInventoryItem("Iron Sword", "Weapon", 1, Color3.fromRGB(128, 128, 128))
-        createInventoryItem("Steel Sword", "Weapon", 1, Color3.fromRGB(0, 255, 0))
-        createInventoryItem("Dragon Blade", "Weapon", 1, Color3.fromRGB(128, 0, 255))
+        createInventoryItem("Iron Sword", "Weapon", 1, "Common")
+        createInventoryItem("Steel Sword", "Weapon", 1, "Rare")
+        createInventoryItem("Dragon Blade", "Weapon", 1, "Epic")
     elseif activeTab == shadowTab then
-        -- Adicionar sombras de exemplo
-        createInventoryItem("Shadow Wolf", "Shadow", 2, Color3.fromRGB(128, 128, 128))
-        createInventoryItem("Shadow Bear", "Shadow", 1, Color3.fromRGB(255, 255, 255))
-        createInventoryItem("Shadow Tiger", "Shadow", 1, Color3.fromRGB(0, 255, 0))
+        createInventoryItem("Shadow Wolf", "Shadow", 2, "Common")
+        createInventoryItem("Shadow Bear", "Shadow", 1, "Rare")
+        createInventoryItem("Shadow Tiger", "Shadow", 1, "Epic")
     elseif activeTab == relicTab then
-        -- Adicionar relíquias de exemplo
-        createInventoryItem("Power Stone", "Relic", 3, Color3.fromRGB(128, 128, 128))
-        createInventoryItem("Warrior's Gem", "Relic", 1, Color3.fromRGB(0, 255, 0))
+        createInventoryItem("Power Stone", "Relic", 3, "Common")
+        createInventoryItem("Warrior's Gem", "Relic", 1, "Rare")
     elseif activeTab == potionTab then
-        -- Adicionar poções de exemplo
-        createInventoryItem("Health Potion", "Potion", 5, Color3.fromRGB(255, 0, 0))
-        createInventoryItem("Mana Potion", "Potion", 3, Color3.fromRGB(0, 0, 255))
+        createInventoryItem("Health Potion", "Potion", 5, "Common")
+        createInventoryItem("Mana Potion", "Potion", 3, "Common")
     elseif activeTab == fragmentTab then
-        -- Adicionar fragmentos de exemplo
-        createInventoryItem("Shadow Fragment", "Fragment", 25, Color3.fromRGB(128, 128, 128))
-        createInventoryItem("Weapon Fragment", "Fragment", 15, Color3.fromRGB(0, 255, 0))
+        createInventoryItem("Shadow Fragment", "Fragment", 25, "Common")
+        createInventoryItem("Weapon Fragment", "Fragment", 15, "Rare")
     end
     
     -- Atualizar tamanho do canvas
@@ -374,7 +296,7 @@ local function switchTab(activeTab)
         end
     end
     
-    local rows = math.ceil(itemCount / 8)
+    local rows = math.ceil(itemCount / 7)
     itemGrid.CanvasSize = UDim2.new(0, 0, 0, rows * 105)
 end
 
@@ -399,22 +321,20 @@ fragmentTab.MouseButton1Click:Connect(function()
     switchTab(fragmentTab)
 end)
 
--- Conectar eventos dos controles
-sortButton.MouseButton1Click:Connect(function()
-    _G.showNotification("Ordenando inventário...", "rbxasset://textures/ui/GuiImagePlaceholder.png", 2)
-end)
-
-filterButton.MouseButton1Click:Connect(function()
-    _G.showNotification("Aplicando filtros...", "rbxasset://textures/ui/GuiImagePlaceholder.png", 2)
-end)
-
-expandButton.MouseButton1Click:Connect(function()
-    _G.showNotification("Expandindo inventário...", "rbxasset://textures/ui/GuiImagePlaceholder.png", 2)
-end)
-
 -- Conectar evento de fechar
 closeButton.MouseButton1Click:Connect(function()
     screenGui.Enabled = false
+end)
+
+-- Efeito hover do botão de fechar
+closeButton.MouseEnter:Connect(function()
+    local tween = TweenService:Create(closeButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(255, 100, 100)})
+    tween:Play()
+end)
+
+closeButton.MouseLeave:Connect(function()
+    local tween = TweenService:Create(closeButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(200, 50, 50)})
+    tween:Play()
 end)
 
 -- Inicializar com aba de armas
@@ -428,4 +348,4 @@ end
 -- Exportar função
 _G.toggleInventory = toggleInventory
 
-print("✅ InventoryGUI carregada com sucesso!")
+print("✅ InventorySystem criado com sucesso!")

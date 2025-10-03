@@ -1,22 +1,21 @@
 --[[
-    TEST GUI
-    Localização: StarterGui/TestGUI.lua
-    
-    GUI de teste simples para verificar se o sistema está funcionando
+    MAIN INTERFACE - Interface Principal
+    Framework completo e funcional para Arise Crossover
 ]]
 
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local player = Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
 
-print("🎮 Criando GUI de teste...")
+print("🎮 Criando interface principal...")
 
 -- Criar GUI principal
 local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "TestGUI"
+screenGui.Name = "MainInterface"
 screenGui.ResetOnSpawn = false
 screenGui.Parent = playerGui
 
@@ -28,7 +27,7 @@ mainFrame.Position = UDim2.new(0, 0, 0, 0)
 mainFrame.BackgroundTransparency = 1
 mainFrame.Parent = screenGui
 
--- Barra de status
+-- Barra de status superior
 local statusBar = Instance.new("Frame")
 statusBar.Name = "StatusBar"
 statusBar.Size = UDim2.new(1, 0, 0, 80)
@@ -55,7 +54,7 @@ border.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
 border.BorderSizePixel = 0
 border.Parent = statusBar
 
--- Informações do jogador
+-- Informações do jogador (esquerda)
 local playerInfo = Instance.new("Frame")
 playerInfo.Name = "PlayerInfo"
 playerInfo.Size = UDim2.new(0, 300, 1, 0)
@@ -63,13 +62,31 @@ playerInfo.Position = UDim2.new(0, 10, 0, 0)
 playerInfo.BackgroundTransparency = 1
 playerInfo.Parent = statusBar
 
+-- Avatar
+local avatar = Instance.new("Frame")
+avatar.Name = "Avatar"
+avatar.Size = UDim2.new(0, 60, 0, 60)
+avatar.Position = UDim2.new(0, 0, 0.5, -30)
+avatar.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+avatar.BorderSizePixel = 0
+avatar.Parent = playerInfo
+
+-- Borda do avatar
+local avatarBorder = Instance.new("Frame")
+avatarBorder.Name = "AvatarBorder"
+avatarBorder.Size = UDim2.new(1, 4, 1, 4)
+avatarBorder.Position = UDim2.new(0, -2, 0, -2)
+avatarBorder.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
+avatarBorder.BorderSizePixel = 0
+avatarBorder.Parent = avatar
+
 -- Nome do jogador
 local playerName = Instance.new("TextLabel")
 playerName.Name = "PlayerName"
-playerName.Size = UDim2.new(1, 0, 0, 30)
-playerName.Position = UDim2.new(0, 0, 0, 5)
+playerName.Size = UDim2.new(1, -70, 0, 25)
+playerName.Position = UDim2.new(0, 70, 0, 5)
 playerName.BackgroundTransparency = 1
-playerName.Text = "Jogador: " .. player.Name
+playerName.Text = player.Name
 playerName.TextColor3 = Color3.fromRGB(255, 255, 255)
 playerName.TextScaled = true
 playerName.Font = Enum.Font.SourceSansBold
@@ -79,8 +96,8 @@ playerName.Parent = playerInfo
 -- Nível
 local levelLabel = Instance.new("TextLabel")
 levelLabel.Name = "LevelLabel"
-levelLabel.Size = UDim2.new(0.5, 0, 0, 25)
-levelLabel.Position = UDim2.new(0, 0, 0, 35)
+levelLabel.Size = UDim2.new(0.5, 0, 0, 20)
+levelLabel.Position = UDim2.new(0, 70, 0, 30)
 levelLabel.BackgroundTransparency = 1
 levelLabel.Text = "Nível: 1"
 levelLabel.TextColor3 = Color3.fromRGB(0, 150, 255)
@@ -92,8 +109,8 @@ levelLabel.Parent = playerInfo
 -- XP
 local xpLabel = Instance.new("TextLabel")
 xpLabel.Name = "XPLabel"
-xpLabel.Size = UDim2.new(0.5, 0, 0, 25)
-xpLabel.Position = UDim2.new(0.5, 0, 0, 35)
+xpLabel.Size = UDim2.new(0.5, 0, 0, 20)
+xpLabel.Position = UDim2.new(0.5, 0, 0, 30)
 xpLabel.BackgroundTransparency = 1
 xpLabel.Text = "XP: 0/100"
 xpLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
@@ -102,7 +119,24 @@ xpLabel.Font = Enum.Font.SourceSans
 xpLabel.TextXAlignment = Enum.TextXAlignment.Left
 xpLabel.Parent = playerInfo
 
--- Moedas
+-- Barra de XP
+local xpBarFrame = Instance.new("Frame")
+xpBarFrame.Name = "XPBarFrame"
+xpBarFrame.Size = UDim2.new(1, -70, 0, 8)
+xpBarFrame.Position = UDim2.new(0, 70, 0, 55)
+xpBarFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+xpBarFrame.BorderSizePixel = 0
+xpBarFrame.Parent = playerInfo
+
+local xpBar = Instance.new("Frame")
+xpBar.Name = "XPBar"
+xpBar.Size = UDim2.new(0, 0, 1, 0)
+xpBar.Position = UDim2.new(0, 0, 0, 0)
+xpBar.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
+xpBar.BorderSizePixel = 0
+xpBar.Parent = xpBarFrame
+
+-- Moedas (direita)
 local currencyFrame = Instance.new("Frame")
 currencyFrame.Name = "CurrencyFrame"
 currencyFrame.Size = UDim2.new(0, 200, 1, 0)
@@ -150,11 +184,11 @@ diamondsLabel.TextScaled = true
 diamondsLabel.Font = Enum.Font.SourceSansBold
 diamondsLabel.Parent = diamondsFrame
 
--- Botões de teste
+-- Botões de acesso rápido (centro)
 local buttonFrame = Instance.new("Frame")
 buttonFrame.Name = "ButtonFrame"
-buttonFrame.Size = UDim2.new(0, 400, 1, 0)
-buttonFrame.Position = UDim2.new(0.5, -200, 0, 0)
+buttonFrame.Size = UDim2.new(0, 500, 1, 0)
+buttonFrame.Position = UDim2.new(0.5, -250, 0, 0)
 buttonFrame.BackgroundTransparency = 1
 buttonFrame.Parent = statusBar
 
@@ -280,6 +314,29 @@ local function showNotification(text, duration)
     end)
 end
 
+-- Função para atualizar interface
+local function updateInterface()
+    -- Aguardar dados do servidor
+    wait(1)
+    
+    -- Simular dados (em um jogo real, estes viriam do servidor)
+    local level = 1
+    local xp = 0
+    local maxXP = 100
+    local cash = 1000
+    local diamonds = 10
+    
+    -- Atualizar labels
+    levelLabel.Text = "Nível: " .. level
+    xpLabel.Text = "XP: " .. xp .. "/" .. maxXP
+    cashLabel.Text = "💰 Cash: " .. cash
+    diamondsLabel.Text = "💎 Diamantes: " .. diamonds
+    
+    -- Atualizar barra de XP
+    local xpPercentage = xp / maxXP
+    xpBar.Size = UDim2.new(xpPercentage, 0, 1, 0)
+end
+
 -- Efeitos hover dos botões
 local function addHoverEffect(button, normalColor, hoverColor)
     button.MouseEnter:Connect(function()
@@ -302,23 +359,23 @@ addHoverEffect(rankingButton, Color3.fromRGB(50, 50, 50), Color3.fromRGB(70, 70,
 
 -- Conectar eventos dos botões
 inventoryButton.MouseButton1Click:Connect(function()
-    showNotification("Abrindo inventário...", 2)
+    showNotification("📦 Abrindo inventário...", 2)
 end)
 
 shadowButton.MouseButton1Click:Connect(function()
-    showNotification("Abrindo sistema de sombras...", 2)
+    showNotification("👻 Abrindo sistema de sombras...", 2)
 end)
 
 weaponButton.MouseButton1Click:Connect(function()
-    showNotification("Abrindo sistema de armas...", 2)
+    showNotification("⚔️ Abrindo sistema de armas...", 2)
 end)
 
 relicButton.MouseButton1Click:Connect(function()
-    showNotification("Abrindo sistema de relíquias...", 2)
+    showNotification("💎 Abrindo sistema de relíquias...", 2)
 end)
 
 rankingButton.MouseButton1Click:Connect(function()
-    showNotification("Abrindo ranking...", 2)
+    showNotification("🏆 Abrindo ranking...", 2)
 end)
 
 -- Atalhos de teclado
@@ -326,24 +383,49 @@ UserInputService.InputBegan:Connect(function(input, gameProcessed)
     if gameProcessed then return end
     
     if input.KeyCode == Enum.KeyCode.I then
-        showNotification("Atalho: Inventário (I)", 2)
+        showNotification("⌨️ Atalho: Inventário (I)", 2)
     elseif input.KeyCode == Enum.KeyCode.S then
-        showNotification("Atalho: Sombras (S)", 2)
+        showNotification("⌨️ Atalho: Sombras (S)", 2)
     elseif input.KeyCode == Enum.KeyCode.W then
-        showNotification("Atalho: Armas (W)", 2)
+        showNotification("⌨️ Atalho: Armas (W)", 2)
     elseif input.KeyCode == Enum.KeyCode.R then
-        showNotification("Atalho: Relíquias (R)", 2)
+        showNotification("⌨️ Atalho: Relíquias (R)", 2)
     elseif input.KeyCode == Enum.KeyCode.L then
-        showNotification("Atalho: Ranking (L)", 2)
+        showNotification("⌨️ Atalho: Ranking (L)", 2)
     elseif input.KeyCode == Enum.KeyCode.F1 then
-        showNotification("Ajuda: Use as teclas I, S, W, R, L", 3)
+        showNotification("❓ Ajuda: Use as teclas I, S, W, R, L", 3)
     end
 end)
 
--- Mostrar notificação de boas-vindas
+-- Conectar eventos do servidor
+local function connectServerEvents()
+    local eventsFolder = ReplicatedStorage:WaitForChild("Events")
+    if eventsFolder then
+        local playerDataEvent = eventsFolder:WaitForChild("PlayerDataUpdated")
+        if playerDataEvent then
+            playerDataEvent.OnClientEvent:Connect(function(dataType, value, extra)
+                if dataType == "Notification" then
+                    showNotification(value, extra or 3)
+                elseif dataType == "Level" then
+                    levelLabel.Text = "Nível: " .. value
+                elseif dataType == "XP" then
+                    xpLabel.Text = "XP: " .. value .. "/" .. (extra or 100)
+                elseif dataType == "Cash" then
+                    cashLabel.Text = "💰 Cash: " .. value
+                elseif dataType == "Diamonds" then
+                    diamondsLabel.Text = "💎 Diamantes: " .. value
+                end
+            end)
+        end
+    end
+end
+
+-- Inicializar
 spawn(function()
     wait(1)
-    showNotification("🎮 Bem-vindo ao Arise Crossover!", 3)
+    updateInterface()
+    connectServerEvents()
+    showNotification("🎮 Bem-vindo ao Arise Crossover!", 5)
 end)
 
-print("✅ TestGUI criada com sucesso!")
+print("✅ MainInterface criada com sucesso!")
