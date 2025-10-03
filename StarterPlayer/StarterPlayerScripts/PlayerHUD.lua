@@ -1,23 +1,30 @@
 --[[
-    MAIN INTERFACE - Interface Principal
-    Framework completo e funcional para Arise Crossover
+    PLAYER HUD - Interface do Jogador
+    Sistema completo de HUD com dados em tempo real
 ]]
 
 local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local player = Players.LocalPlayer
-local playerGui = player:WaitForChild("PlayerGui")
 
-print("🎮 Criando interface principal...")
+print("🎮 === PLAYER HUD INICIADO ===")
+
+-- Aguardar eventos
+local eventsFolder = ReplicatedStorage:WaitForChild("Events")
+local dataLoadedEvent = eventsFolder:WaitForChild("DataLoaded")
+local dataUpdatedEvent = eventsFolder:WaitForChild("DataUpdated")
+local getPlayerDataFunction = eventsFolder:WaitForChild("GetPlayerData")
+local getShadowsFunction = eventsFolder:WaitForChild("GetShadows")
+local getEquippedShadowsFunction = eventsFolder:WaitForChild("GetEquippedShadows")
 
 -- Criar GUI principal
 local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "MainInterface"
+screenGui.Name = "PlayerHUD"
 screenGui.ResetOnSpawn = false
-screenGui.Parent = playerGui
+screenGui.Parent = player.PlayerGui
 
 -- Frame principal
 local mainFrame = Instance.new("Frame")
@@ -184,78 +191,53 @@ diamondsLabel.TextScaled = true
 diamondsLabel.Font = Enum.Font.SourceSansBold
 diamondsLabel.Parent = diamondsFrame
 
--- Botões de acesso rápido (centro)
-local buttonFrame = Instance.new("Frame")
-buttonFrame.Name = "ButtonFrame"
-buttonFrame.Size = UDim2.new(0, 500, 1, 0)
-buttonFrame.Position = UDim2.new(0.5, -250, 0, 0)
-buttonFrame.BackgroundTransparency = 1
-buttonFrame.Parent = statusBar
+-- Sistema de sombras (inferior esquerdo)
+local shadowFrame = Instance.new("Frame")
+shadowFrame.Name = "ShadowFrame"
+shadowFrame.Size = UDim2.new(0, 300, 0, 120)
+shadowFrame.Position = UDim2.new(0, 10, 1, -130)
+shadowFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+shadowFrame.BorderSizePixel = 0
+shadowFrame.Parent = mainFrame
 
--- Botão de inventário
-local inventoryButton = Instance.new("TextButton")
-inventoryButton.Name = "InventoryButton"
-inventoryButton.Size = UDim2.new(0, 80, 0, 50)
-inventoryButton.Position = UDim2.new(0, 0, 0.5, -25)
-inventoryButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-inventoryButton.BorderSizePixel = 0
-inventoryButton.Text = "📦\nInventário"
-inventoryButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-inventoryButton.TextScaled = true
-inventoryButton.Font = Enum.Font.SourceSansBold
-inventoryButton.Parent = buttonFrame
+-- Borda do frame de sombras
+local shadowBorder = Instance.new("Frame")
+shadowBorder.Name = "ShadowBorder"
+shadowBorder.Size = UDim2.new(1, 4, 1, 4)
+shadowBorder.Position = UDim2.new(0, -2, 0, -2)
+shadowBorder.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
+shadowBorder.BorderSizePixel = 0
+shadowBorder.Parent = shadowFrame
 
--- Botão de sombras
-local shadowButton = Instance.new("TextButton")
-shadowButton.Name = "ShadowButton"
-shadowButton.Size = UDim2.new(0, 80, 0, 50)
-shadowButton.Position = UDim2.new(0, 90, 0.5, -25)
-shadowButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-shadowButton.BorderSizePixel = 0
-shadowButton.Text = "👻\nSombras"
-shadowButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-shadowButton.TextScaled = true
-shadowButton.Font = Enum.Font.SourceSansBold
-shadowButton.Parent = buttonFrame
+-- Título das sombras
+local shadowTitle = Instance.new("TextLabel")
+shadowTitle.Name = "ShadowTitle"
+shadowTitle.Size = UDim2.new(1, 0, 0, 30)
+shadowTitle.Position = UDim2.new(0, 0, 0, 0)
+shadowTitle.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+shadowTitle.BorderSizePixel = 0
+shadowTitle.Text = "👻 SOMBRAS EQUIPADAS"
+shadowTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+shadowTitle.TextScaled = true
+shadowTitle.Font = Enum.Font.SourceSansBold
+shadowTitle.Parent = shadowFrame
 
--- Botão de armas
-local weaponButton = Instance.new("TextButton")
-weaponButton.Name = "WeaponButton"
-weaponButton.Size = UDim2.new(0, 80, 0, 50)
-weaponButton.Position = UDim2.new(0, 180, 0.5, -25)
-weaponButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-weaponButton.BorderSizePixel = 0
-weaponButton.Text = "⚔️\nArmas"
-weaponButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-weaponButton.TextScaled = true
-weaponButton.Font = Enum.Font.SourceSansBold
-weaponButton.Parent = buttonFrame
+-- Lista de sombras
+local shadowList = Instance.new("ScrollingFrame")
+shadowList.Name = "ShadowList"
+shadowList.Size = UDim2.new(1, -10, 1, -40)
+shadowList.Position = UDim2.new(0, 5, 0, 35)
+shadowList.BackgroundTransparency = 1
+shadowList.BorderSizePixel = 0
+shadowList.ScrollBarThickness = 5
+shadowList.CanvasSize = UDim2.new(0, 0, 0, 0)
+shadowList.Parent = shadowFrame
 
--- Botão de relíquias
-local relicButton = Instance.new("TextButton")
-relicButton.Name = "RelicButton"
-relicButton.Size = UDim2.new(0, 80, 0, 50)
-relicButton.Position = UDim2.new(0, 270, 0.5, -25)
-relicButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-relicButton.BorderSizePixel = 0
-relicButton.Text = "💎\nRelíquias"
-relicButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-relicButton.TextScaled = true
-relicButton.Font = Enum.Font.SourceSansBold
-relicButton.Parent = buttonFrame
-
--- Botão de ranking
-local rankingButton = Instance.new("TextButton")
-rankingButton.Name = "RankingButton"
-rankingButton.Size = UDim2.new(0, 80, 0, 50)
-rankingButton.Position = UDim2.new(0, 360, 0.5, -25)
-rankingButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-rankingButton.BorderSizePixel = 0
-rankingButton.Text = "🏆\nRanking"
-rankingButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-rankingButton.TextScaled = true
-rankingButton.Font = Enum.Font.SourceSansBold
-rankingButton.Parent = buttonFrame
+-- Layout da lista de sombras
+local shadowLayout = Instance.new("UIListLayout")
+shadowLayout.SortOrder = Enum.SortOrder.LayoutOrder
+shadowLayout.Padding = UDim.new(0, 2)
+shadowLayout.Parent = shadowList
 
 -- Sistema de notificações
 local notificationFrame = Instance.new("Frame")
@@ -314,118 +296,112 @@ local function showNotification(text, duration)
     end)
 end
 
--- Função para atualizar interface
-local function updateInterface()
-    -- Aguardar dados do servidor
-    wait(1)
+-- Função para atualizar HUD
+local function updateHUD(data)
+    if not data then return end
     
-    -- Simular dados (em um jogo real, estes viriam do servidor)
-    local level = 1
-    local xp = 0
-    local maxXP = 100
-    local cash = 1000
-    local diamonds = 10
-    
-    -- Atualizar labels
-    levelLabel.Text = "Nível: " .. level
-    xpLabel.Text = "XP: " .. xp .. "/" .. maxXP
-    cashLabel.Text = "💰 Cash: " .. cash
-    diamondsLabel.Text = "💎 Diamantes: " .. diamonds
+    -- Atualizar informações básicas
+    levelLabel.Text = "Nível: " .. (data.Level or 1)
+    xpLabel.Text = "XP: " .. (data.XP or 0) .. "/" .. (data.MaxXP or 100)
+    cashLabel.Text = "💰 Cash: " .. (data.Cash or 0)
+    diamondsLabel.Text = "💎 Diamantes: " .. (data.Diamonds or 0)
     
     -- Atualizar barra de XP
-    local xpPercentage = xp / maxXP
+    local xpPercentage = (data.XP or 0) / (data.MaxXP or 100)
     xpBar.Size = UDim2.new(xpPercentage, 0, 1, 0)
-end
-
--- Efeitos hover dos botões
-local function addHoverEffect(button, normalColor, hoverColor)
-    button.MouseEnter:Connect(function()
-        local tween = TweenService:Create(button, TweenInfo.new(0.2), {BackgroundColor3 = hoverColor})
-        tween:Play()
-    end)
     
-    button.MouseLeave:Connect(function()
-        local tween = TweenService:Create(button, TweenInfo.new(0.2), {BackgroundColor3 = normalColor})
-        tween:Play()
-    end)
+    -- Atualizar sombras equipadas
+    updateEquippedShadows(data.EquippedShadows or {})
+    
+    print("📊 HUD atualizado para:", player.Name)
 end
 
--- Aplicar efeitos hover
-addHoverEffect(inventoryButton, Color3.fromRGB(50, 50, 50), Color3.fromRGB(70, 70, 70))
-addHoverEffect(shadowButton, Color3.fromRGB(50, 50, 50), Color3.fromRGB(70, 70, 70))
-addHoverEffect(weaponButton, Color3.fromRGB(50, 50, 50), Color3.fromRGB(70, 70, 70))
-addHoverEffect(relicButton, Color3.fromRGB(50, 50, 50), Color3.fromRGB(70, 70, 70))
-addHoverEffect(rankingButton, Color3.fromRGB(50, 50, 50), Color3.fromRGB(70, 70, 70))
+-- Função para atualizar sombras equipadas
+local function updateEquippedShadows(equippedShadows)
+    -- Limpar lista atual
+    for _, child in ipairs(shadowList:GetChildren()) do
+        if child:IsA("Frame") then
+            child:Destroy()
+        end
+    end
+    
+    -- Adicionar sombras equipadas
+    for _, shadowId in ipairs(equippedShadows) do
+        local shadowItem = Instance.new("Frame")
+        shadowItem.Name = "ShadowItem_" .. shadowId
+        shadowItem.Size = UDim2.new(1, 0, 0, 25)
+        shadowItem.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+        shadowItem.BorderSizePixel = 0
+        shadowItem.Parent = shadowList
+        
+        local shadowLabel = Instance.new("TextLabel")
+        shadowLabel.Name = "ShadowLabel"
+        shadowLabel.Size = UDim2.new(1, 0, 1, 0)
+        shadowLabel.BackgroundTransparency = 1
+        shadowLabel.Text = "Sombra ID: " .. shadowId
+        shadowLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+        shadowLabel.TextScaled = true
+        shadowLabel.Font = Enum.Font.SourceSans
+        shadowLabel.TextXAlignment = Enum.TextXAlignment.Left
+        shadowLabel.Parent = shadowItem
+    end
+    
+    -- Atualizar tamanho do canvas
+    shadowList.CanvasSize = UDim2.new(0, 0, 0, #equippedShadows * 27)
+end
 
--- Conectar eventos dos botões
-inventoryButton.MouseButton1Click:Connect(function()
-    showNotification("📦 Abrindo inventário...", 2)
+-- Função para atualizar dados específicos
+local function updateData(key, value)
+    if key == "Level" then
+        levelLabel.Text = "Nível: " .. value
+    elseif key == "XP" then
+        xpLabel.Text = "XP: " .. value .. "/" .. (getPlayerDataFunction:InvokeServer("MaxXP") or 100)
+        local xpPercentage = value / (getPlayerDataFunction:InvokeServer("MaxXP") or 100)
+        xpBar.Size = UDim2.new(xpPercentage, 0, 1, 0)
+    elseif key == "Cash" then
+        cashLabel.Text = "💰 Cash: " .. value
+    elseif key == "Diamonds" then
+        diamondsLabel.Text = "💎 Diamantes: " .. value
+    elseif key == "EquippedShadows" then
+        updateEquippedShadows(value)
+    end
+end
+
+-- Conectar eventos
+dataLoadedEvent.OnClientEvent:Connect(function(data)
+    updateHUD(data)
+    showNotification("🎮 Dados carregados com sucesso!", 3)
 end)
 
-shadowButton.MouseButton1Click:Connect(function()
-    showNotification("👻 Abrindo sistema de sombras...", 2)
+dataUpdatedEvent.OnClientEvent:Connect(function(key, value)
+    updateData(key, value)
 end)
 
-weaponButton.MouseButton1Click:Connect(function()
-    showNotification("⚔️ Abrindo sistema de armas...", 2)
-end)
-
-relicButton.MouseButton1Click:Connect(function()
-    showNotification("💎 Abrindo sistema de relíquias...", 2)
-end)
-
-rankingButton.MouseButton1Click:Connect(function()
-    showNotification("🏆 Abrindo ranking...", 2)
-end)
-
--- Atalhos de teclado
+-- Sistema de atalhos de teclado
 UserInputService.InputBegan:Connect(function(input, gameProcessed)
     if gameProcessed then return end
     
     if input.KeyCode == Enum.KeyCode.I then
-        showNotification("⌨️ Atalho: Inventário (I)", 2)
+        showNotification("📦 Inventário em desenvolvimento...", 2)
     elseif input.KeyCode == Enum.KeyCode.S then
-        showNotification("⌨️ Atalho: Sombras (S)", 2)
+        showNotification("👻 Sistema de sombras em desenvolvimento...", 2)
     elseif input.KeyCode == Enum.KeyCode.W then
-        showNotification("⌨️ Atalho: Armas (W)", 2)
+        showNotification("⚔️ Sistema de armas em desenvolvimento...", 2)
     elseif input.KeyCode == Enum.KeyCode.R then
-        showNotification("⌨️ Atalho: Relíquias (R)", 2)
+        showNotification("💎 Sistema de relíquias em desenvolvimento...", 2)
+    elseif input.KeyCode == Enum.KeyCode.D then
+        showNotification("🏰 Sistema de dungeons em desenvolvimento...", 2)
     elseif input.KeyCode == Enum.KeyCode.L then
-        showNotification("⌨️ Atalho: Ranking (L)", 2)
+        showNotification("🏆 Sistema de ranking em desenvolvimento...", 2)
     elseif input.KeyCode == Enum.KeyCode.F1 then
-        showNotification("❓ Ajuda: Use as teclas I, S, W, R, L", 3)
+        showNotification("❓ Ajuda: Use as teclas I, S, W, R, D, L", 5)
     end
 end)
 
--- Conectar eventos do servidor
-local function connectServerEvents()
-    local eventsFolder = ReplicatedStorage:WaitForChild("Events")
-    if eventsFolder then
-        local playerDataEvent = eventsFolder:WaitForChild("PlayerDataUpdated")
-        if playerDataEvent then
-            playerDataEvent.OnClientEvent:Connect(function(dataType, value, extra)
-                if dataType == "Notification" then
-                    showNotification(value, extra or 3)
-                elseif dataType == "Level" then
-                    levelLabel.Text = "Nível: " .. value
-                elseif dataType == "XP" then
-                    xpLabel.Text = "XP: " .. value .. "/" .. (extra or 100)
-                elseif dataType == "Cash" then
-                    cashLabel.Text = "💰 Cash: " .. value
-                elseif dataType == "Diamonds" then
-                    diamondsLabel.Text = "💎 Diamantes: " .. value
-                end
-            end)
-        end
-    end
-end
-
--- Inicializar
+-- Mostrar notificação de boas-vindas
 spawn(function()
-    wait(1)
-    updateInterface()
-    connectServerEvents()
-    showNotification("🎮 Bem-vindo ao Arise Crossover!", 5)
+    wait(2)
+    showNotification("🎮 Bem-vindo ao Anime Fighters Simulator!", 5)
 end)
 
-print("✅ MainInterface criada com sucesso!")
+print("✅ PlayerHUD carregado com sucesso!")
